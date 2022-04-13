@@ -94,6 +94,24 @@ while True:
     # cv.imshow ('and', mask_R)
     cv.imshow ('blank', blank)
 
+    countR = 0
+    countB = 0
+    countY = 0
+
+    for i in d:
+        if 'Red' in i:
+            countR += 1
+        elif 'Blue' in i:
+            countB += 1
+        else:
+            countY += 1
+
+    if countB<11:
+        print ('Opponent has the ball')
+    elif countR<11:
+        print ('player has the ball')
+
+    print(f'Red = {countR}, Blue = {countB}, Ball = {countY}')
     cv.waitKey(1)
 
     # print (d)
