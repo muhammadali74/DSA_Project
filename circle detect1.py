@@ -56,7 +56,7 @@ while True:
 
         count += 1
 
-        # cv.circle(img, md, 3, (255, 0, 0), -1)
+        cv.circle(img, md, 3, (255, 0, 0), -1)
         # cv.circle(blank, md, 8, (255, 0, 0), -1)
 
 
@@ -71,17 +71,17 @@ while True:
     # cv.circle(img, md, 8, (0, 255, 255), -1)
     # cv.circle(blank, md, 8, (0, 255, 255), -1)
 
-    # for i in d:
-    #     for j in d:
-    #         if i != j:
-                # if i == 'ball' or j == 'ball':
-                #     cv.line(img, d[i], d[j], (0, 255, 255), 1)
-                #     # cv.line(blank, d[i], d[j], (0, 255, 255), 1)
-                # elif 'Red' in i or 'Red' in j:
-                    # cv.line(img, d[i], d[j], (0, 0, 255), 1)
+    for i in d:
+        for j in d:
+            if i != j:
+                if i == 'ball' or j == 'ball':
+                    cv.line(img, d[i], d[j], (0, 255, 255), 1)
+                    # cv.line(blank, d[i], d[j], (0, 255, 255), 1)
+                elif 'Red' in i or 'Red' in j:
+                    cv.line(img, d[i], d[j], (0, 0, 255), 1)
                     # cv.line(blank, d[i], d[j], (0, 0, 255), 1)
-                # else:
-                #     cv.line(img, d[i], d[j], (255, 0, 0), 1)
+                else:
+                    cv.line(img, d[i], d[j], (255, 0, 0), 1)
                     # cv.line(blank, d[i], d[j], (255, 0, 0), 1)
 
     cv.imshow ('jehe', img)
