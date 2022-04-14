@@ -23,15 +23,15 @@ lower_B = np.array([70, 70, 70])
 upper_B = np.array([80, 80, 80])
 
 # img = cv.imread('try2.png')
-img = cv.imread('tryyyy.png')
+# img = cv.imread('tryyyy.png')
 # hsv = cv.cvtColor(img, cv.COLOR_BGR2HSV)
 # blank = np.zeros(img.shape[:], dtype='uint8')
 # blank2 = np.zeros(img.shape[:], dtype='uint8')
-# cap = cv.VideoCapture(1)
+cap = cv.VideoCapture(0)
 
 
 while True:
-    # _, img = cap.read()
+    _, img = cap.read()
     count = 0
     hsv = cv.cvtColor(img, cv.COLOR_BGR2HSV)
     blank = np.zeros(img.shape[:], dtype='uint8')
@@ -41,35 +41,35 @@ while True:
     # mask_Y = cv.inRange(img, lower_Y, upper_Y)
     # mask_B = cv.inRange(img, lower_B, upper_B)
     #Upper boundary
-    cv.line(blank, (70, 34), (1080, 34), (255, 255, 255), 8)
+    cv.line(blank, (30, 34), (600, 34), (255, 255, 255), 8) #600
     cv.line(blank2, (70, 34), (1080, 34), (255, 255, 255), 8)
 
     #Lower boundary
-    cv.line(blank, (70, 630), (1080, 630), (255, 255, 255), 8)
+    cv.line(blank, (30, 400), (600, 400), (255, 255, 255), 8)
     cv.line(blank2, (70, 630), (1080, 630), (255, 255, 255), 8)
 
     #upper left corner
-    cv.line(blank, (70, 34), (70, 245), (255, 255, 255), 8)
+    cv.line(blank, (30, 34), (30, 400), (255, 255, 255), 8)
     cv.line(blank2, (70, 34), (70, 245), (255, 255, 255), 8)
 
     #upper right corner
-    cv.line(blank, (1080, 34), (1080, 245), (255, 255, 255), 8)
+    cv.line(blank, (600, 34), (600, 400), (255, 255, 255), 8)
     cv.line(blank2, (1080, 34), (1080, 245), (255, 255, 255), 8)
 
     #lower left corner
-    cv.line(blank, (70, 430), (70, 630), (255, 255, 255), 8)
-    cv.line(blank2, (70, 430), (70, 630), (255, 255, 255), 8)
+    # cv.line(blank, (70, 430), (70, 630), (255, 255, 255), 8)
+    # cv.line(blank2, (70, 430), (70, 630), (255, 255, 255), 8)
 
     #lower right corner
     cv.line(blank, (1080, 430), (1080, 630), (255, 255, 255), 8)
     cv.line(blank2, (1080, 430), (1080, 630), (255, 255, 255), 8)
 
     #left goal
-    cv.line(blank, (70, 245), (70, 430), (45, 29, 240), 8)
+    cv.line(blank, (30, 150), (30, 300), (45, 29, 240), 8)
     cv.line(blank2, (70, 245), (70, 430), (45, 29, 240), 8)
 
     #right goal
-    cv.line(blank, (1080, 245), (1080, 430), (45, 29, 240), 8)
+    cv.line(blank, (600, 150), (600, 300), (45, 29, 240), 8)
     cv.line(blank2, (1080, 245), (1080, 430), (45, 29, 240), 8)
 
     mask_R = cv.inRange(hsv, (161, 244, 141), (172, 255, 255))
@@ -157,6 +157,14 @@ while True:
             countB += 1
         else:
             countY += 1
+
+    # if d['ball'][1] > 100 and d['ball'][0] == 20:
+    #     print ('outside')
+    # elif d['ball'][1] > 500 and d['ball'][0] == 20:
+    #     print ('outside')
+    # elif d['ball'][1] > 500 and d['ball'][0] == 20:
+    #     print ('upper left corner')
+
 
     if countB < 11:
         print('Opponent has the ball')
