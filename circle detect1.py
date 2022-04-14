@@ -23,15 +23,15 @@ lower_B = np.array([70, 70, 70])
 upper_B = np.array([80, 80, 80])
 
 # img = cv.imread('try2.png')
-# img = cv.imread('tryyyy.png')
+img = cv.imread('tryyyy.png')
 # hsv = cv.cvtColor(img, cv.COLOR_BGR2HSV)
 # blank = np.zeros(img.shape[:], dtype='uint8')
 # blank2 = np.zeros(img.shape[:], dtype='uint8')
-cap = cv.VideoCapture(1)
+# cap = cv.VideoCapture(1)
 
 
 while True:
-    _, img = cap.read()
+    # _, img = cap.read()
     count = 0
     hsv = cv.cvtColor(img, cv.COLOR_BGR2HSV)
     blank = np.zeros(img.shape[:], dtype='uint8')
@@ -42,27 +42,35 @@ while True:
     # mask_B = cv.inRange(img, lower_B, upper_B)
     #Upper boundary
     cv.line(blank, (70, 34), (1080, 34), (255, 255, 255), 8)
+    cv.line(blank2, (70, 34), (1080, 34), (255, 255, 255), 8)
 
     #Lower boundary
     cv.line(blank, (70, 630), (1080, 630), (255, 255, 255), 8)
+    cv.line(blank2, (70, 630), (1080, 630), (255, 255, 255), 8)
 
     #upper left corner
     cv.line(blank, (70, 34), (70, 245), (255, 255, 255), 8)
+    cv.line(blank2, (70, 34), (70, 245), (255, 255, 255), 8)
 
     #upper right corner
     cv.line(blank, (1080, 34), (1080, 245), (255, 255, 255), 8)
+    cv.line(blank2, (1080, 34), (1080, 245), (255, 255, 255), 8)
 
     #lower left corner
     cv.line(blank, (70, 430), (70, 630), (255, 255, 255), 8)
+    cv.line(blank2, (70, 430), (70, 630), (255, 255, 255), 8)
 
     #lower right corner
     cv.line(blank, (1080, 430), (1080, 630), (255, 255, 255), 8)
+    cv.line(blank2, (1080, 430), (1080, 630), (255, 255, 255), 8)
 
     #left goal
     cv.line(blank, (70, 245), (70, 430), (45, 29, 240), 8)
+    cv.line(blank2, (70, 245), (70, 430), (45, 29, 240), 8)
 
     #right goal
     cv.line(blank, (1080, 245), (1080, 430), (45, 29, 240), 8)
+    cv.line(blank2, (1080, 245), (1080, 430), (45, 29, 240), 8)
 
     mask_R = cv.inRange(hsv, (161, 244, 141), (172, 255, 255))
     mask_Y = cv.inRange(hsv, (24, 177, 187), (33, 247, 217))
@@ -105,6 +113,7 @@ while True:
         cv.circle(img, md, 3, (255, 0, 0), -1)
         cv.circle(blank, md, 10, (255, 0, 0), -1)
         cv.circle(blank2, md, 8, (255, 0, 0), -1)
+
     for cnt in con_Y:
 
         x_Y, y_Y, w_Y, h_Y = cv.boundingRect(cnt)
