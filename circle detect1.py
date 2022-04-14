@@ -13,27 +13,29 @@ d = {}
 
 count = 0
 
-lower_R = np.array([68, 0, 149])
-upper_R = np.array([114, 28, 222])
+lower_R = np.array([75, 0, 163])
+upper_R = np.array([100, 0, 220])
 
-lower_Y = np.array([0, 193, 222])
-upper_Y = np.array([0, 201, 232])
+lower_Y = np.array([1, 190, 216])
+upper_Y = np.array([3, 204, 232])
 
-lower_B = np.array([168, 128, 0])
-upper_B = np.array([246, 185, 0])
+lower_B = np.array([179, 137, 0])
+upper_B = np.array([243, 183, 0])
 
-img = cv.imread('try2.png')
-
-cap = cv.VideoCapture(1)
+# img = cv.imread('try2.png')
+img = cv.imread('tryyyy.png')
+blank = np.zeros(img.shape[:], dtype='uint8')
+blank2 = np.zeros(img.shape[:], dtype='uint8')
+# cap = cv.VideoCapture(1)
 
 # blank = np.zeros(img.shape[:], dtype='uint8')
 # blank2= np.zeros(img.shape[:], dtype='uint8')
 
 while True:
-    _, img = cap.read()
+    # _, img = cap.read()
+    count =0
 
-    blank = np.zeros(img.shape[:], dtype='uint8')
-    blank2 = np.zeros(img.shape[:], dtype='uint8')
+    
 
     mask_R = cv.inRange(img, lower_R, upper_R)
     mask_Y = cv.inRange(img, lower_Y, upper_Y)
@@ -60,7 +62,7 @@ while True:
 
         cv.circle(img, md, 3, (0, 0, 255), -1)
         cv.circle(blank, md, 3, (0, 0, 255), -1)
-        cv.circle(blank2, md, 3, (0, 0, 255), -1)
+        # cv.circle(blank2, md, 3, (0, 0, 255), -1)
 
     count = 0
 
@@ -75,7 +77,7 @@ while True:
 
         cv.circle(img, md, 3, (255, 0, 0), -1)
         cv.circle(blank, md, 3, (255, 0, 0), -1)
-        cv.circle(blank2, md, 3, (255, 0, 0), -1)
+        # cv.circle(blank2, md, 3, (255, 0, 0), -1)
     for cnt in con_Y:
 
         x_Y, y_Y, w_Y, h_Y = cv.boundingRect(cnt)
@@ -88,25 +90,25 @@ while True:
 
         cv.circle(img, md_Y, 3, (0, 255, 255), -1)
         cv.circle(blank, md_Y, 3, (0, 255, 255), -1)
-        cv.circle(blank2, md_Y, 3, (0, 255, 255), -1)
+        # cv.circle(blank2, md_Y, 8, (0, 255, 255), -1)
 
-    for i in d:
-        for j in d:
-            if i != j:
-                if i == 'ball':
-                    cv.line(img, d[i], d[j], (0, 255, 255), 1)
-                    cv.line(blank, d[i], d[j], (0, 255, 255), 1)
-                elif 'Red' in i:
-                    cv.line(img, d[i], d[j], (0, 0, 255), 1)
-                    cv.line(blank, d[i], d[j], (0, 0, 255), 1)
-                else:
-                    cv.line(img, d[i], d[j], (255, 0, 0), 1)
-                    cv.line(blank, d[i], d[j], (255, 0, 0), 1)
+    # for i in d:
+    #     for j in d:
+    #         if i != j:
+    #             if i == 'ball':
+    #                 cv.line(img, d[i], d[j], (0, 255, 255), 1)
+    #                 cv.line(blank, d[i], d[j], (0, 255, 255), 1)
+    #             elif 'Red' in i:
+    #                 cv.line(img, d[i], d[j], (0, 0, 255), 1)
+    #                 cv.line(blank, d[i], d[j], (0, 0, 255), 1)
+    #             else:
+    #                 cv.line(img, d[i], d[j], (255, 0, 0), 1)
+    #                 cv.line(blank, d[i], d[j], (255, 0, 0), 1)
 
     cv.imshow('Orig', img)
     # cv.imshow ('and', mask_R)
     cv.imshow('Graph', blank)
-    cv.imshow('nodesOnly', blank2)
+    # cv.imshow('nodesOnly', blank2)
 
     countR = 0
     countB = 0
