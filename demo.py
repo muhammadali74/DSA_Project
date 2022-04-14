@@ -100,6 +100,7 @@ while True:
         cv.circle(img, md, 3, (255, 0, 0), -1)
         cv.circle(blank, md, 10, (255, 0, 0), -1)
         cv.circle(blank2, md, 8, (255, 0, 0), -1)
+        
     for cnt in con_Y:
 
         x_Y, y_Y, w_Y, h_Y = cv.boundingRect(cnt)
