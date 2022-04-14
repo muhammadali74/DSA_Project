@@ -61,7 +61,7 @@ while True:
         count += 1
 
         cv.circle(img, md, 3, (0, 0, 255), -1)
-        cv.circle(blank, md, 3, (0, 0, 255), -1)
+        cv.circle(blank, md, 10, (0, 0, 255), -1)
         cv.circle(blank2, md, 8, (0, 0, 255), -1)
 
     count = 0
@@ -76,7 +76,7 @@ while True:
         count += 1
 
         cv.circle(img, md, 3, (255, 0, 0), -1)
-        cv.circle(blank, md, 3, (255, 0, 0), -1)
+        cv.circle(blank, md, 10, (255, 0, 0), -1)
         cv.circle(blank2, md, 8, (255, 0, 0), -1)
     for cnt in con_Y:
 
@@ -89,21 +89,21 @@ while True:
         count += 1
 
         cv.circle(img, md_Y, 3, (0, 255, 255), -1)
-        cv.circle(blank, md_Y, 3, (0, 255, 255), -1)
+        cv.circle(blank, md_Y, 10, (0, 255, 255), -1)
         cv.circle(blank2, md_Y, 8, (0, 255, 255), -1)
 
-    # for i in d:
-    #     for j in d:
-    #         if i != j:
-    #             if i == 'ball':
-    #                 cv.line(img, d[i], d[j], (0, 255, 255), 1)
-    #                 cv.line(blank, d[i], d[j], (0, 255, 255), 1)
-    #             elif 'Red' in i:
-    #                 cv.line(img, d[i], d[j], (0, 0, 255), 1)
-    #                 cv.line(blank, d[i], d[j], (0, 0, 255), 1)
-    #             else:
-    #                 cv.line(img, d[i], d[j], (255, 0, 0), 1)
-    #                 cv.line(blank, d[i], d[j], (255, 0, 0), 1)
+    for i in d:
+        for j in d:
+            if i != j:
+                if i == 'ball':
+                    # cv.line(img, d[i], d[j], (0, 255, 255), 1)
+                    cv.line(blank, d[i], d[j], (0, 255, 255), 1)
+                elif 'Red' in i:
+                    # cv.line(img, d[i], d[j], (0, 0, 255), 1)
+                    cv.line(blank, d[i], d[j], (0, 0, 255), 1)
+                else:
+                    # cv.line(img, d[i], d[j], (255, 0, 0), 1)
+                    cv.line(blank, d[i], d[j], (255, 0, 0), 1)
 
     cv.imshow('Orig', img)
     # cv.imshow ('and', mask_R)
