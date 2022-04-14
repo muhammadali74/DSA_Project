@@ -91,6 +91,7 @@ while True:
         cv.circle(blank2, md_Y, 3, (0, 255, 255), -1)
 
     for i in d:
+        # passakdbafj
         for j in d:
             if i != j:
                 if i == 'ball':
