@@ -16,30 +16,34 @@ count = 0
 lower_R = np.array([75, 0, 163])
 upper_R = np.array([100, 0, 220])
 
-lower_Y = np.array([1, 190, 216])
-upper_Y = np.array([3, 204, 232])
+lower_Y = np.array([30, 194, 194])
+upper_Y = np.array([40, 200, 200])
 
-lower_B = np.array([179, 137, 0])
-upper_B = np.array([243, 183, 0])
+lower_B = np.array([70, 70, 70])
+upper_B = np.array([80, 80, 80])
 
 # img = cv.imread('try2.png')
-img = cv.imread('tryyyy.png')
-blank = np.zeros(img.shape[:], dtype='uint8')
-blank2 = np.zeros(img.shape[:], dtype='uint8')
-# cap = cv.VideoCapture(1)
-
+# img = cv.imread('tryyyy.png')
+# hsv = cv.cvtColor(img, cv.COLOR_BGR2HSV)
 # blank = np.zeros(img.shape[:], dtype='uint8')
-# blank2= np.zeros(img.shape[:], dtype='uint8')
+# blank2 = np.zeros(img.shape[:], dtype='uint8')
+cap = cv.VideoCapture(1)
+
 
 while True:
-    # _, img = cap.read()
-    count =0
+    _, img = cap.read()
+    count = 0
+    hsv = cv.cvtColor(img, cv.COLOR_BGR2HSV)
+    blank = np.zeros(img.shape[:], dtype='uint8')
+    blank2 = np.zeros(img.shape[:], dtype='uint8')
 
-    
+    # mask_R = cv.inRange(img, lower_R, upper_R)
+    # mask_Y = cv.inRange(img, lower_Y, upper_Y)
+    # mask_B = cv.inRange(img, lower_B, upper_B)
 
-    mask_R = cv.inRange(img, lower_R, upper_R)
-    mask_Y = cv.inRange(img, lower_Y, upper_Y)
-    mask_B = cv.inRange(img, lower_B, upper_B)
+    mask_R = cv.inRange(hsv, (161, 244, 141), (172, 255, 255))
+    mask_Y = cv.inRange(hsv, (24, 177, 187), (33, 247, 217))
+    mask_B = cv.inRange(hsv, (93,210,193), (101, 241, 238))
 
     con_R, contours_R = cv.findContours(
         mask_R, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
