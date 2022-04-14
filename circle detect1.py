@@ -62,7 +62,7 @@ while True:
 
         cv.circle(img, md, 3, (0, 0, 255), -1)
         cv.circle(blank, md, 3, (0, 0, 255), -1)
-        # cv.circle(blank2, md, 3, (0, 0, 255), -1)
+        cv.circle(blank2, md, 8, (0, 0, 255), -1)
 
     count = 0
 
@@ -77,7 +77,7 @@ while True:
 
         cv.circle(img, md, 3, (255, 0, 0), -1)
         cv.circle(blank, md, 3, (255, 0, 0), -1)
-        # cv.circle(blank2, md, 3, (255, 0, 0), -1)
+        cv.circle(blank2, md, 8, (255, 0, 0), -1)
     for cnt in con_Y:
 
         x_Y, y_Y, w_Y, h_Y = cv.boundingRect(cnt)
@@ -90,7 +90,7 @@ while True:
 
         cv.circle(img, md_Y, 3, (0, 255, 255), -1)
         cv.circle(blank, md_Y, 3, (0, 255, 255), -1)
-        # cv.circle(blank2, md_Y, 8, (0, 255, 255), -1)
+        cv.circle(blank2, md_Y, 8, (0, 255, 255), -1)
 
     # for i in d:
     #     for j in d:
@@ -108,7 +108,7 @@ while True:
     cv.imshow('Orig', img)
     # cv.imshow ('and', mask_R)
     cv.imshow('Graph', blank)
-    # cv.imshow('nodesOnly', blank2)
+    cv.imshow('nodesOnly', blank2)
 
     countR = 0
     countB = 0
