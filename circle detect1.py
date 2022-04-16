@@ -8,32 +8,51 @@ def mid_point(x1, y1, x2, y2):
 
     return (x, y)
 
+def dist (x1, y1, x2, y2):
+    a = (x2 - x1) ** 2
+    b = (y2 - y1) ** 2
+
+    d = abs((a + b)) ** (1/2)
+
+    return d
+
+def display_adj_matrix (G):
+    lst = [[0 for j in range(len(G))] for i in range (len(G))]
+    d1 = {}
+    count = 0
+    for m in G:
+        d1[m] = count
+        count += 1
+    for k in G:
+        for l in G:
+            lst[d1[k]][d1[l]] = dist(G[k][0], G[k][1], G[l][0], G[l][1])
+    return d1, lst
 
 d = {}
 
 count = 0
 
-lower_R = np.array([75, 0, 163])
-upper_R = np.array([100, 0, 220])
+# lower_R = np.array([75, 0, 163])
+# upper_R = np.array([100, 0, 220])
 
-lower_Y = np.array([30, 194, 194])
-upper_Y = np.array([40, 200, 200])
+# lower_Y = np.array([30, 194, 194])
+# upper_Y = np.array([40, 200, 200])
 
-lower_B = np.array([70, 70, 70])
-upper_B = np.array([80, 80, 80])
+# lower_B = np.array([70, 70, 70])
+# upper_B = np.array([80, 80, 80])
 
 # img = cv.imread('try2.png')
-# img = cv.imread('tryyyy.png')
-# hsv = cv.cvtColor(img, cv.COLOR_BGR2HSV)
+img = cv.imread('tryyyy.png')
+hsv = cv.cvtColor(img, cv.COLOR_BGR2HSV)
 # blank = np.zeros(img.shape[:], dtype='uint8')
 # blank2 = np.zeros(img.shape[:], dtype='uint8')
-cap = cv.VideoCapture(0)
+# cap = cv.VideoCapture(0)
 
 
 while True:
-    _, img = cap.read()
+    # _, img = cap.read()
     count = 0
-    hsv = cv.cvtColor(img, cv.COLOR_BGR2HSV)
+    # hsv = cv.cvtColor(img, cv.COLOR_BGR2HSV)
     blank = np.zeros(img.shape[:], dtype='uint8')
     blank2 = np.zeros(img.shape[:], dtype='uint8')
 
@@ -141,6 +160,9 @@ while True:
                     # cv.line(img, d[i], d[j], (255, 0, 0), 1)
                     cv.line(blank, d[i], d[j], (255, 0, 0), 1)
 
+    # print (display_adj_matrix(d))
+    key, adj_mat = display_adj_matrix(d)
+
     cv.imshow('Orig', img)
     # cv.imshow ('and', mask_R)
     cv.imshow('Graph', blank)
@@ -155,7 +177,7 @@ while True:
             countR += 1
         elif 'Blue' in i:
             countB += 1
-        else:
+        elif i == ' ball':
             countY += 1
 
     # if d['ball'][1] > 100 and d['ball'][0] == 20:
@@ -175,3 +197,7 @@ while True:
     cv.waitKey(1)
 
     # print (d)
+    # print (key['Red0'])
+    print(adj_mat[key['Red0']][key['Red0']])
+    # print (d['Red0'])
+    # print (dist(d['Red0'][0], d['Red0'][1], d['Red0'][0], d['Red0'][1]))
