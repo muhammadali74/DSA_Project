@@ -1,7 +1,8 @@
 import imghdr
 import cv2 as cv
-import numpy as np
 import time
+import numpy as np
+import pydirectinput as p
 
 
 def mid_point(x1, y1, x2, y2):
@@ -20,17 +21,16 @@ def dist(x1, y1, x2, y2):
     return d
 
 
-def display_adj_matrix(G):
-    lst = [[0 for j in range(len(G))] for i in range(len(G))]
-    d1 = {}
-    count = 0
-    for m in G:
-        d1[m] = count
-        count += 1
+def display_adj_matrix(G, lst, d1):
+    # d1 = {}
+    # count = 0
+    # for m in G:
+    #     d1[m] = count
+    #     count += 1
     for k in G:
         for l in G:
             lst[d1[k]][d1[l]] = dist(G[k][0], G[k][1], G[l][0], G[l][1])
-    return d1, lst
+    return lst
 
 # d = {}
 
@@ -57,6 +57,12 @@ cap = cv.VideoCapture(1)
 # cap.set(4, 720)
 d = {'Red0': (628, 545), 'Red1': (723, 537), 'Red2': (589, 422), 'Red3': (665, 408), 'Red4': (763, 387), 'Red5': (1029, 333), 'Red6': (774, 277), 'Red7': (666, 260), 'Red8': (592, 246), 'Red9': (724, 132), 'Red10': (628, 123), 'Blue0': (
     510, 548), 'Blue1': (531, 544), 'Blue2': (524, 535), 'Blue3': (513, 539), 'Blue4': (407, 439), 'Blue5': (402, 430), 'Blue6': (387, 436), 'Blue7': (473, 407), 'Blue8': (493, 407), 'Blue9': (486, 397), 'Blue10': (482, 396), 'ball': (561, 315)}
+d1 = {}
+lst = [[0 for j in range(len(d))] for i in range(len(d))]
+count = 0
+for m in d:
+    d1[m] = count
+    count += 1
 
 while True:
     _, img = cap.read()
@@ -186,7 +192,7 @@ while True:
                     cv.line(blank, d[i], d[j], (255, 0, 0), 1)
 
     # print (display_adj_matrix(d))
-    key, adj_mat = display_adj_matrix(d)
+    adj_mat = display_adj_matrix(d, lst, d1)
 
     cv.imshow('Orig', img)
     # cv.imshow ('and', mask_R)
@@ -216,8 +222,16 @@ while True:
     print(f'Red = {countR}, Blue = {countB}, Ball = {countY}')
     cv.waitKey(1)
 
-    # print (d)
+    print(d)
+    # print(adj_mat)
+    time.sleep(1)
     # print (key['Red0'])
     # print(adj_mat[key['Red0']][key['Red0']])
     # print (d['Red0'])
     # print (dist(d['Red0'][0], d['Red0'][1], d['Red0'][0], d['Red0'][1]))
+
+    if countB > 10:
+        p.keyDown('s')
+
+    else:
+        p.keyUp('s')
