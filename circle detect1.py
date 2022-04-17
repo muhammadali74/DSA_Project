@@ -247,5 +247,3 @@ while True:
         else:
             p.keyUp('s')
             p.keyUp('a')
-
-    
