@@ -108,6 +108,10 @@ while True:
     cv.line(img, (548, 174), (548, 305), (45, 29, 240), 8)
     cv.line(blank2, (548, 174), (548, 305), (45, 29, 240), 8)
 
+    cv.line(img, (202, 7), (202, 460), (255, 255, 255), 2)
+    cv.line(img, (423, 7), (423, 460), (255, 255, 255), 2)
+    cv.line(img, (313, 7), (313, 460), (255, 255, 255), 1)
+
     mask_R = cv.inRange(hsv, (161, 244, 141), (172, 255, 255))
     mask_Y = cv.inRange(hsv, (24, 177, 187), (33, 247, 217))
     mask_B = cv.inRange(hsv, (93, 210, 193), (101, 241, 238))
@@ -224,14 +228,22 @@ while True:
 
     print(d)
     # print(adj_mat)
-    time.sleep(1)
+    # time.sleep(1)
     # print (key['Red0'])
     # print(adj_mat[key['Red0']][key['Red0']])
     # print (d['Red0'])
     # print (dist(d['Red0'][0], d['Red0'][1], d['Red0'][0], d['Red0'][1]))
+    red_Y = [d[x][0] for x in d if x[0] == 'R' and d[x][0] < 200]
+    red_Y2 = [d[x][0] for x in d if x[0] == 'R' and d[x][0] < 325]
+    print(red_Y)
 
-    if countB > 10:
-        p.keyDown('s')
-
-    else:
-        p.keyUp('s')
+    # Defensive Strategy
+    if countB > 10 and d['ball'][0] < 423:
+        if ((len(red_Y2) > 3) and d['ball'][0] < 423):
+            p.keyDown('s')
+        elif len(red_Y) >= 2 and d['ball'][0] < 202:
+            p.keyDown('s')
+            p.keyDown('a')
+        else:
+            p.keyUp('s')
+            p.keyUp('a')
