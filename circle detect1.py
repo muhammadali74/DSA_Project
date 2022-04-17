@@ -28,9 +28,9 @@ def display_adj_matrix (G):
             lst[d1[k]][d1[l]] = dist(G[k][0], G[k][1], G[l][0], G[l][1])
     return d1, lst
 
-d = {}
+# d = {}
 
-count = 0
+# count = 0
 
 # lower_R = np.array([75, 0, 163])
 # upper_R = np.array([100, 0, 220])
@@ -42,16 +42,19 @@ count = 0
 # upper_B = np.array([80, 80, 80])
 
 # img = cv.imread('try2.png')
-img = cv.imread('tryyyy.png')
+img = cv.imread('try4.png')
 hsv = cv.cvtColor(img, cv.COLOR_BGR2HSV)
 # blank = np.zeros(img.shape[:], dtype='uint8')
 # blank2 = np.zeros(img.shape[:], dtype='uint8')
 # cap = cv.VideoCapture(0)
-
+d = {'Red0': (628, 545), 'Red1': (723, 537), 'Red2': (589, 422), 'Red3': (665, 408), 'Red4': (763, 387), 'Red5': (1029, 333), 'Red6': (774, 277), 'Red7': (666, 260), 'Red8': (592, 246), 'Red9': (724, 132), 'Red10': (628, 123), 'Blue0': (510, 548), 'Blue1': (531, 544), 'Blue2': (524, 535), 'Blue3': (513, 539), 'Blue4': (407, 439), 'Blue5': (402, 430), 'Blue6': (387, 436), 'Blue7': (473, 407), 'Blue8': (493, 407), 'Blue9': (486, 397), 'Blue10': (482, 396), 'ball': (561, 315)}
 
 while True:
     # _, img = cap.read()
     count = 0
+    countR = 0
+    countB = 0
+    countY = 0
     # hsv = cv.cvtColor(img, cv.COLOR_BGR2HSV)
     blank = np.zeros(img.shape[:], dtype='uint8')
     blank2 = np.zeros(img.shape[:], dtype='uint8')
@@ -110,13 +113,18 @@ while True:
 
         md = mid_point(x, y, x+w, y+h)
 
-        d[f'Red{count}'] = md
+        # if f'Red{count}' in d:
+        if countR <= 10:
 
-        count += 1
+            d[f'Red{count}'] = md
 
-        cv.circle(img, md, 3, (0, 0, 255), -1)
-        cv.circle(blank, md, 10, (0, 0, 255), -1)
-        cv.circle(blank2, md, 8, (0, 0, 255), -1)
+            count += 1
+            countR += 1
+
+            cv.circle(img, md, 3, (0, 0, 255), -1)
+            cv.circle(blank, md, 10, (0, 0, 255), -1)
+                # if countR < 3:
+            cv.circle(blank2, md, 8, (0, 0, 255), -1)
 
     count = 0
 
@@ -125,13 +133,18 @@ while True:
 
         md = mid_point(x, y, x+w, y+h)
 
-        d[f'Blue{count}'] = md
+        # if f'Blue{count}' in d:
+        if countB <= 10:
 
-        count += 1
+            d[f'Blue{count}'] = md
 
-        cv.circle(img, md, 3, (255, 0, 0), -1)
-        cv.circle(blank, md, 10, (255, 0, 0), -1)
-        cv.circle(blank2, md, 8, (255, 0, 0), -1)
+            count += 1
+            countB += 1
+
+            cv.circle(img, md, 3, (255, 0, 0), -1)
+            cv.circle(blank, md, 10, (255, 0, 0), -1)
+            # if countB < 5:
+            cv.circle(blank2, md, 8, (255, 0, 0), -1)   
 
     for cnt in con_Y:
 
@@ -139,13 +152,18 @@ while True:
 
         md_Y = mid_point(x_Y, y_Y, x_Y+w_Y, y_Y+h_Y)
 
-        d['ball'] = md_Y
+        if countY <= 1:
 
-        count += 1
+        
 
-        cv.circle(img, md_Y, 3, (0, 255, 255), -1)
-        cv.circle(blank, md_Y, 10, (0, 255, 255), -1)
-        cv.circle(blank2, md_Y, 8, (0, 255, 255), -1)
+            d['ball'] = md_Y
+
+            count += 1
+            countY += 1
+
+            cv.circle(img, md_Y, 3, (0, 255, 255), -1)
+            cv.circle(blank, md_Y, 10, (0, 255, 255), -1)
+            cv.circle(blank2, md_Y, 8, (0, 255, 255), -1)
 
     for i in d:
         for j in d:
@@ -168,17 +186,15 @@ while True:
     cv.imshow('Graph', blank)
     cv.imshow('nodesOnly', blank2)
 
-    countR = 0
-    countB = 0
-    countY = 0
+    
 
-    for i in d:
-        if 'Red' in i:
-            countR += 1
-        elif 'Blue' in i:
-            countB += 1
-        elif i == ' ball':
-            countY += 1
+    # for i in d:
+    #     if 'Red' in i:
+    #         countR += 1
+    #     elif 'Blue' in i:
+    #         countB += 1
+    #     elif i == ' ball':
+    #         countY += 1
 
     # if d['ball'][1] > 100 and d['ball'][0] == 20:
     #     print ('outside')
@@ -188,16 +204,16 @@ while True:
     #     print ('upper left corner')
 
 
-    if countB < 11:
-        print('Opponent has the ball')
-    elif countR < 11:
-        print('player has the ball')
+    # if countB < 11:
+    #     print('Opponent has the ball')
+    # elif countR < 11:
+    #     print('player has the ball')
 
     print(f'Red = {countR}, Blue = {countB}, Ball = {countY}')
     cv.waitKey(1)
 
-    # print (d)
+    print (d)
     # print (key['Red0'])
-    print(adj_mat[key['Red0']][key['Red0']])
+    # print(adj_mat[key['Red0']][key['Red0']])
     # print (d['Red0'])
     # print (dist(d['Red0'][0], d['Red0'][1], d['Red0'][0], d['Red0'][1]))
