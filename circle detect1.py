@@ -188,10 +188,10 @@ while True:
                 if i == 'ball':
                     # cv.line(img, d[i], d[j], (0, 255, 255), 1)
                     cv.line(blank, d[i], d[j], (0, 255, 255), 1)
-                elif 'Red' in i:
+                elif 'Red' in i and 'Red' in j:
                     # cv.line(img, d[i], d[j], (0, 0, 255), 1)
                     cv.line(blank, d[i], d[j], (0, 0, 255), 1)
-                else:
+                elif 'Blue' in i and 'Blue' in j:
                     # cv.line(img, d[i], d[j], (255, 0, 0), 1)
                     cv.line(blank, d[i], d[j], (255, 0, 0), 1)
 
@@ -201,7 +201,7 @@ while True:
     cv.imshow('Orig', img)
     # cv.imshow ('and', mask_R)
     cv.imshow('Graph', blank)
-    cv.imshow('nodesOnly', blank2)
+    # cv.imshow('nodesOnly', blank2)
 
     # for i in d:
     #     if 'Red' in i:
@@ -223,21 +223,5 @@ while True:
     # elif countR < 11:
     #     print('player has the ball')
 
-    print(f'Red = {countR}, Blue = {countB}, Ball = {countY}')
+    # print(f'Red = {countR}, Blue = {countB}, Ball = {countY}')
     cv.waitKey(1)
-
-    print(d)
-    red_Y = [d[x][0] for x in d if x[0] == 'R' and d[x][0] < 200]
-    red_Y2 = [d[x][0] for x in d if x[0] == 'R' and d[x][0] < 325]
-    print(red_Y)
-
-    # Defensive Strategy
-    if countB > 10 and d['ball'][0] < 423:
-        if ((len(red_Y2) > 3) and d['ball'][0] < 423):
-            p.keyDown('s')
-        elif len(red_Y) >= 2 and d['ball'][0] < 202:
-            p.keyDown('s')
-            p.keyDown('a')
-        else:
-            p.keyUp('s')
-            p.keyUp('a')
