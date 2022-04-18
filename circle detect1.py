@@ -227,12 +227,6 @@ while True:
     cv.waitKey(1)
 
     print(d)
-    # print(adj_mat)
-    # time.sleep(1)
-    # print (key['Red0'])
-    # print(adj_mat[key['Red0']][key['Red0']])
-    # print (d['Red0'])
-    # print (dist(d['Red0'][0], d['Red0'][1], d['Red0'][0], d['Red0'][1]))
     red_Y = [d[x][0] for x in d if x[0] == 'R' and d[x][0] < 200]
     red_Y2 = [d[x][0] for x in d if x[0] == 'R' and d[x][0] < 325]
     print(red_Y)
