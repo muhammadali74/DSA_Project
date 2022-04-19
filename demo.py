@@ -121,10 +121,10 @@ while True:
                 if i == 'ball':
                     # cv.line(img, d[i], d[j], (0, 255, 255), 1)
                     cv.line(blank, d[i], d[j], (0, 255, 255), 1)
-                elif 'Red' in i:
+                elif 'Red' in i and 'Red' in j:
                     # cv.line(img, d[i], d[j], (0, 0, 255), 1)
                     cv.line(blank, d[i], d[j], (0, 0, 255), 1)
-                else:
+                elif 'Blue'in i and 'Blue' in j:
                     # cv.line(img, d[i], d[j], (255, 0, 0), 1)
                     cv.line(blank, d[i], d[j], (255, 0, 0), 1)
 
