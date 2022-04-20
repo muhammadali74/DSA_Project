@@ -62,7 +62,7 @@ lst = [[0 for j in range(len(d))] for i in range(len(d))]
 count = 0
 for m in d:
     d1[m] = count
-    count += 1
+    count += 1  
 
 while True:
     _, img = cap.read()
