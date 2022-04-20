@@ -119,19 +119,22 @@ while True:
         for j in d:
             if i != j:
                 if i == 'ball':
+                    # pass
                     # cv.line(img, d[i], d[j], (0, 255, 255), 1)
                     cv.line(blank, d[i], d[j], (0, 255, 255), 1)
                 elif 'Red' in i and 'Red' in j:
+                    pass
                     # cv.line(img, d[i], d[j], (0, 0, 255), 1)
-                    cv.line(blank, d[i], d[j], (0, 0, 255), 1)
+                    # cv.line(blank, d[i], d[j], (0, 0, 255), 1)
                 elif 'Blue'in i and 'Blue' in j:
+                    pass
                     # cv.line(img, d[i], d[j], (255, 0, 0), 1)
-                    cv.line(blank, d[i], d[j], (255, 0, 0), 1)
+                    # cv.line(blank, d[i], d[j], (255, 0, 0), 1)
 
     # cv.imshow('Orig', img)
     # cv.imshow ('and', mask_R)
-    # cv.imshow('Graph', blank)
-    cv.imshow('nodesOnly', blank2)
+    cv.imshow('Graph', blank)
+    # cv.imshow('nodesOnly', blank2)
 
     countR = 0
     countB = 0
