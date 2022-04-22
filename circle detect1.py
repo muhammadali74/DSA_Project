@@ -300,10 +300,12 @@ while True:
 
         teammates = sorted(adj_mat[22][11:22], key=lambda x: x[0])
         opp = sorted(adj_mat[22][0:11], key=lambda y: y[0])
+        run = True
         if d['ball'][0]>410:
-            for i in teammates[:5]:
-                
-
+            for i in opp[:5]:
+                if d[d2[i[1]]][0] < d['ball'][0]:
+                    # bhag()
+                    pass
        
 
         kepp_ball=True
