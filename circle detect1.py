@@ -152,6 +152,7 @@ while True:
     hsv = cv.cvtColor(img, cv.COLOR_BGR2HSV)
     blank = np.zeros(img.shape[:], dtype='uint8')
     blank2 = np.zeros(img.shape[:], dtype='uint8')
+    blank3 = np.zeros(img.shape[:], dtype='uint8')
 
     # Upper boundary
     cv.line(blank, (77, 7), (548, 7), (255, 255, 255), 8)
@@ -325,6 +326,7 @@ while True:
             should_pass = True
             ynew = m*x2 + b+50  # distance between ball and the next player se ooper wala distance jispe line end horhi hai. parallelogra ki
             diss = dist(x1, y1, x2, ynew)
+            cv.line(blank3, (x1, y1), (x2, ynew), (255,255,255), 10)
             if opp_i[0] > 30:
                 for i in adj_mat[22][0:11]:
                     if i[0] < diss:
