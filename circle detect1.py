@@ -39,12 +39,6 @@ def line(x1, y1, x2, y2):
 
 
 def pass_ball(x1,y1,x2,y2):
-    # x1,y1= d[d2[node1]]ssssssss
-    # x2,y2 = d[d2[node2]]
-    # r = y1 + adj_mat[node1][node2]
-    # y=r*math.cos()
-    # x=r*math.sin() # theta lejajan zero se pisssssss
-
     r_n = dist(y1, x1, y2, x2)
     if y2-y1 == 0:
         y2 =1
@@ -306,6 +300,13 @@ while True:
 
         teammates = sorted(adj_mat[22][11:22], key=lambda x: x[0])
         opp = sorted(adj_mat[22][0:11], key=lambda y: y[0])
+        if d['ball'][0]>410:
+            for i in teammates[:5]:
+                
+
+       
+
+        kepp_ball=True
 
         for i in teammates:
             print(f'entering loop {i}')
@@ -325,18 +326,25 @@ while True:
             should_pass = True
             ynew = m*x2 + b+50  # distance between ball and the next player se ooper wala distance jispe line end horhi hai. parallelogra ki
             diss = dist(x1, y1, x2, ynew)
-            if opp_i[0] > 30:
+            if opp_i[0] > 50:
                 for i in adj_mat[22][0:11]:
                     if i[0] < diss:
                         a1, b1 = d[d2[i[1]]]
-                        if (b1 > 1.15*m*a1 + b+20) or b1 < (0.9*m*a1 + b-20):
+                        if (b1 > 1.15*m*a1 + b+40) or b1 < (0.9*m*a1 + b-40):
                             pass
                         else:
                             should_pass = False
                             break
                 if should_pass:
                     pass_ball(x1,y1,x2,y2)
+                    keepball=False
                     print('passsssssssssssssssssssssssssssssssssssssssssssss')
+
+        if keepball==True:\
+
+
+
+        
 
     # time.sleep(1)ss
 # sss
