@@ -9,12 +9,12 @@ import os
 import sys
 
 
-def enqueue_p(Q, label, p):
-  for i in range(len(Q)):
-    if Q[i][1] > p:
-      Q.insert (i, (label, p))
+def enqueue_P (Q, elem, num):
+  for i in range (len(Q)):
+    if Q[i][num] > elem[num]:
+      Q.insert (i, elem)
       return 
-  Q.append ((label, p))
+  Q.append (elem)
   return
     
 
