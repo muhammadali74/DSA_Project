@@ -1,6 +1,7 @@
 import imghdr
 import cv2 as cv
 import time
+from cv2 import illuminationChange
 import numpy as np
 import pydirectinput as p
 import math
@@ -8,12 +9,8 @@ import os
 import sys
 
 
-def enqueue_P (Q, label, p):
-  for i in range (len(Q)):
-    if Q[i][0] == label:
-      del Q[i]
-      break
-  for i in range (len(Q)):
+def enqueue_p(Q, label, p):
+  for i in range(len(Q)):
     if Q[i][1] > p:
       Q.insert (i, (label, p))
       return 
@@ -33,7 +30,7 @@ def dist(x1, y1, x2, y2):
     a = (x2 - x1) ** 2
     b = (y2 - y1) ** 2
 
-    d = abs((a+ b)) ** (1/2)
+    d = abs((a + b)) ** (1/2)
 
     return d
 
@@ -54,20 +51,17 @@ def line(x1, y1, x2, y2):
     return m, b
 
 
-
-
-def pass_ball(x1,y1,x2,y2,dis):
+def pass_ball(x1, y1, x2, y2, dis):
     r_n = dist(y1, x1, y2, x2)
     if y2-y1 == 0:
-        y2 =1
-    
-    angle=math.atan((x2-x1) / (y2-y1))
+        y2 = 1
 
-    if dis>140:
-        hold=0.4
+    angle = math.atan((x2-x1) / (y2-y1))
+
+    if dis > 140:
+        hold = 0.4
     else:
-        hold=dis/325
-
+        hold = dis/325
 
     if 0 < angle < (math.pi)/6:
         #  print(math.atan(x2-x1/(y2-y1))
@@ -142,7 +136,7 @@ def pass_ball(x1,y1,x2,y2,dis):
     else:
         p.keyDown('s')
         time.sleep(hold)
-        print('SUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIii')
+        print('SUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII')
         p.keyUp('s')
     time.sleep(0.4)
 # agr two specfic line se bahor hai to dont kick
@@ -150,20 +144,101 @@ def pass_ball(x1,y1,x2,y2,dis):
 # atleast some distance ry har banday se or total distanc eki cost maximium rhay...
 # if akela or koi bnada spas nhi to dorect goal
 
+
 def goaler():
-    m1,b1=line(548,174,381,7)
-    m2,b2=line(548,305,381,460)
+    m1, b1 = line(548, 174, 381, 7)
+    m2, b2 = line(548, 305, 381, 460)
 
+    destination= None
+    list = []
+    for i in d:
+        if d[i][0] >= 470:
+            if d[i][1] > (m1*d[i][0] + b1) and d[i][1] < (m2*d[i][0] + b2) and 'Blue' in i:
+                enqueue_p(list,(i, d1[i], 548-d[i][0]))
+            # elif 'Red' in i:
+            #     enqueue_p(enemy,(i, d1[i]))
+
+    destination=False
+
+    for l in list:
+        opp_lst = [x for x in adj_mat[l[1]][0:11] if x[0] < 22]
+        if len(opp_lst)>1:
+            pass
+        else:
+            destination=l
+            break
     
+    if destination:
+        dx,dy=dijkstra(adj_mat,destination)
+        print(dx,dy)
+        print('Garmi dekho rozay choro nasahy karo..............................')
 
 
+def dijkstra(graph, start):
+# we can also make seperate lists/dictionaries ofr red and blue nodes
+    nodes_to_take = []
+    for q in d:
+        if d[q][0] > 410 and 'Blue' in q:
+            nodes_to_take.append(d1[q])
+
+    back_path=[]
+        
+
+    distances = [float("inf") for _ in range(len(graph))]
+    distancenode={}
+
+    # This contains whether a node was already visited
+    visited = []
+    for i in range(len(graph)):
+        if i in nodes_to_take:
+            visited.append(False)
+        else:
+            visited.append(True)
+
+    # The distance from the start node to itself is of course 0
+    distances[start] = 0
+
+    # While there are nodes left to visit...
+    while True:
+        # find the node with the currently shortest distance from the start node...
+        shortest_distance = float("inf")
+        shortest_index = -1
+        for i in range(len(graph)):
+            # ... by going through all nodes that haven't been visited yet
+            if distances[i] < shortest_distance and not visited[i]:
+                shortest_distance = distances[i]
+                shortest_index = i
+
+        # print("Visiting node " + str(shortest_index) + " with current distance " + str(shortest_distance))
+
+        if shortest_index == -1:
+            # There was no node not yet visited --> We are done
+            return distances,distancenode
+
+        # ...then, for all neighboring nodes that haven't been visited yet....
+        for i in range(11,len(graph[shortest_index])):
+            # ...if the path over this edge is shorter...
+            opps = get_enemy(adj_mat,i)
+            if graph[shortest_index][i] != 0 and distances[i] > distances[shortest_index] + graph[shortest_index][i] and len(opps)<=1:
+                # ...Save this path as new shortest path.
+                distances[i] = distances[shortest_index] + graph[shortest_index][i]
+                distancenode[i] = shortest_index
+
+                # print("Updating distance of node " + str(i) + " to " + str(distances[i]))
+
+        # Lastly, note that we are finished with this node.
+        visited[shortest_index] = True
+        # print("Visited nodes: " + str(visited))
+        # print("Currently lowest distances: " + str(distances))
+
+def get_enemy(graph,node):
+    opp_lst = [x for x in graph[node][0:11] if x[0] < 22]
+    return opp_lst
 
 
 
 # d = {}
-
 # count = 0ssssssssssssssss
-
 # lower_R = np.array([75, 0, 163])sssssssssssssssssssss
 # upper_R = np.array([100, 0, 220])
 # lower_Y = np.array([30, 194, 194])
@@ -245,6 +320,8 @@ while True:
     mask_Y = cv.inRange(hsv, (24, 177, 187), (33, 247, 217))
     mask_B = cv.inRange(hsv, (93, 210, 193), (101, 241, 238))
     # mask_B = cv.inRange(hsv, (94, 191, 204), (98, 203, 213))
+
+    # cv.circle(blank,(300,300),25,(0,0,80),3)
 
     con_R, contours_R = cv.findContours(
         mask_R, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
@@ -360,15 +437,15 @@ while True:
         teammates = sorted(adj_mat[22][11:22], key=lambda x: x[0])
         opp = sorted(adj_mat[22][0:11], key=lambda y: y[0])
         run = True
-        if d['ball'][0]>410:
+        if d['ball'][0] > 410:
 
             for i in opp[:5]:
                 if d[d2[i[1]]][0] < d['ball'][0]:
 
                     # bhag()
                     pass
-       
-        kepp_ball=True
+
+        kepp_ball = True
 
         for i in teammates:
             print(f'entering loop {i}')
@@ -399,7 +476,6 @@ while True:
                             should_pass = False
                             break
                 if should_pass:
-                    pass_ball(x1,y1,x2,y2,i[0])
-                    keepball=False
+                    pass_ball(x1, y1, x2, y2, i[0])
+                    keepball = False
                     print('passsssssssssssssssssssssssssssssssssssssssssssss')
-
