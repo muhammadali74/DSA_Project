@@ -9,15 +9,13 @@ import os
 import sys
 
 
-def enqueue_P (Q, elem, num):
+def enqueue_p(Q, elem, num=2):
   for i in range (len(Q)):
     if Q[i][num] > elem[num]:
       Q.insert (i, elem)
       return 
   Q.append (elem)
   return
-    
-
 
 def mid_point(x1, y1, x2, y2):
     x = (x1 + x2) // 2
@@ -438,14 +436,14 @@ while True:
         opp = sorted(adj_mat[22][0:11], key=lambda y: y[0])
         run = True
         if d['ball'][0] > 410:
+            goaler()
+        #     for i in opp[:5]:
+        #         if d[d2[i[1]]][0] < d['ball'][0]:
 
-            for i in opp[:5]:
-                if d[d2[i[1]]][0] < d['ball'][0]:
+        #             # bhag()
+        #             pass
 
-                    # bhag()
-                    pass
-
-        kepp_ball = True
+        # kepp_ball = True
 
         for i in teammates:
             print(f'entering loop {i}')
@@ -479,3 +477,8 @@ while True:
                     pass_ball(x1, y1, x2, y2, i[0])
                     keepball = False
                     print('passsssssssssssssssssssssssssssssssssssssssssssss')
+
+
+
+    time.sleep(4)
+#ss

@@ -1,0 +1,56 @@
+def dijkstra(graph, start):
+    # we can also make seperate lists/dictionaries ofr red and blue nodes
+    nodes_to_take = []
+    for q in d:
+        if d[q][0] > 410 and 'Blue' in q:
+            nodes_to_take.append(d1[q])
+
+    back_path = []
+
+    distances = [float("inf") for _ in range(len(graph))]
+    distancenode = {}
+
+    # This contains whether a node was already visited
+    visited = []
+    for i in range(len(graph)):
+        if i in nodes_to_take:
+            visited.append(False)
+        else:
+            visited.append(True)
+
+    # The distance from the start node to itself is of course 0
+    distances[start] = 0
+
+    # While there are nodes left to visit...
+    while True:
+        # find the node with the currently shortest distance from the start node...
+        shortest_distance = float("inf")
+        shortest_index = -1
+        for i in range(len(graph)):
+            # ... by going through all nodes that haven't been visited yet
+            if distances[i] < shortest_distance and not visited[i]:
+                shortest_distance = distances[i]
+                shortest_index = i
+
+        # print("Visiting node " + str(shortest_index) + " with current distance " + str(shortest_distance))
+
+        if shortest_index == -1:
+            # There was no node not yet visited --> We are done
+            return distances, distancenode
+
+        # ...then, for all neighboring nodes that haven't been visited yet....
+        for i in range(11, len(graph[shortest_index])):
+            # ...if the path over this edge is shorter...
+            opps = get_enemy(adj_mat, i)
+            if graph[shortest_index][i] != 0 and distances[i] > distances[shortest_index] + graph[shortest_index][i] and len(opps) <= 1:
+                # ...Save this path as new shortest path.
+                distances[i] = distances[shortest_index] + \
+                    graph[shortest_index][i]
+                distancenode[i] = shortest_index
+
+                # print("Updating distance of node " + str(i) + " to " + str(distances[i]))
+
+        # Lastly, note that we are finished with this node.
+        visited[shortest_index] = True
+        # print("Visited nodes: " + str(visited))
+        # print("Currently lowest distances: " + str(distances))
