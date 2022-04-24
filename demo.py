@@ -26,6 +26,7 @@ upper_B = np.array([243, 183, 0])
 img = cv.imread('tryyyy.png')
 blank = np.zeros(img.shape[:], dtype='uint8')
 blank2 = np.zeros(img.shape[:], dtype='uint8')
+blank3 = np.zeros(img.shape[:], dtype='uint8')
 # cap = cv.VideoCapture(1)
 
 # blank = np.zeros(img.shape[:], dtype='uint8')
@@ -154,3 +155,5 @@ while True:
     cv.waitKey(1)
 
     # print (d)
+
+    
