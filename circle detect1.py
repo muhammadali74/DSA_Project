@@ -182,6 +182,9 @@ while True:
     cv.line(img, (423, 7), (423, 460), (255, 255, 255), 2)
     cv.line(img, (313, 7), (313, 460), (255, 255, 255), 1)
 
+    cv.line(img, (548, 174), (381, 7), (255, 255, 255), 10)
+    cv.line(img, (548, 305), (381, 460), (255, 255, 255), 10)
+
     mask_R = cv.inRange(hsv, (161, 244, 141), (172, 255, 255))
     mask_Y = cv.inRange(hsv, (24, 177, 187), (33, 247, 217))
     mask_B = cv.inRange(hsv, (93, 210, 193), (101, 241, 238))
@@ -329,7 +332,7 @@ while True:
             should_pass = True
             ynew = m*x2 + b+50  # distance between ball and the next player se ooper wala distance jispe line end horhi hai. parallelogra ki
             diss = dist(x1, y1, x2, ynew)
-            # cv.line(blank3, (x1, y1), (x2, ynew), (255,255,255), 10)
+            # cv.line(blank, (x1, y1), (x2, ynew), (255,0,0), 10)
             if opp_i[0] > 40:
                 for i in adj_mat[22][0:11]:
                     if i[0] < diss:
