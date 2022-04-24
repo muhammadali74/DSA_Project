@@ -4,6 +4,8 @@ import time
 import numpy as np
 import pydirectinput as p
 import math
+import os
+import sys
 
 
 def mid_point(x1, y1, x2, y2):
@@ -17,7 +19,7 @@ def dist(x1, y1, x2, y2):
     a = (x2 - x1) ** 2
     b = (y2 - y1) ** 2
 
-    d = abs((a + b)) ** (1/2)
+    d = abs((a+ b)) ** (1/2)
 
     return d
 
@@ -38,58 +40,82 @@ def line(x1, y1, x2, y2):
     return m, b
 
 
-def pass_ball(x1,y1,x2,y2):
+def pass_ball(x1,y1,x2,y2,dis):
     r_n = dist(y1, x1, y2, x2)
     if y2-y1 == 0:
         y2 =1
-    if 0 < math.atan((x2-x1) / (y2-y1)) < (math.pi)/6:
-        # print(math.atan(x2-x1/(y2-y1))
+    
+    angle=math.atan((x2-x1) / (y2-y1))
+
+    if dis>140:
+        hold=0.4
+    else:
+        hold=dis/325
+
+
+    if 0 < angle < (math.pi)/6:
+        #  print(math.atan(x2-x1/(y2-y1))
         print('passdown')
         p.keyDown('down')
         p.keyDown('s')
-        time.sleep(0.4)
+        time.sleep(hold)
         p.keyUp('down')
         p.keyUp('s')
-    elif (math.pi/6) < math.atan((x2-x1) / (y2-y1)) < (math.pi) / 3:
+    elif (math.pi/6) < angle < (math.pi) / 3:
         print('downright')
         p.keyDown('down')
         p.keyDown('right')
         p.keyDown('s')
-        time.sleep(0.4)
+        time.sleep(hold)
         p.keyUp('right')
         p.keyUp('down')
         p.keyUp('s')
-    elif (math.pi/3) < math.atan((x2-x1) / (y2-y1)) < 2*(math.pi)/3:
+    elif (math.pi/3) < angle < (math.pi)/2:
         print('passright')
         p.keyDown('right')
         p.keyDown('s')
-        time.sleep(0.4)
+        time.sleep(hold)
         p.keyUp('right')
         p.keyUp('s')
-    elif 2*(math.pi/3) < math.atan((x2-x1) / (y2-y1)) < 5*(math.pi)/6:
+    elif (math.pi/2) < 180-angle < 2*(math.pi)/3:
+        print('passright')
+        p.keyDown('right')
+        p.keyDown('s')
+        time.sleep(hold)
+        p.keyUp('right')
+        p.keyUp('s')
+    elif 2*(math.pi/3) < 180-angle < 5*(math.pi)/6:
         print('upright')
         p.keyDown('up')
         p.keyDown('right')
         p.keyDown('s')
-        time.sleep(0.4)
+        time.sleep(hold)
         p.keyUp('right')
         p.keyUp('up')
         p.keyUp('s')
 
-    elif 5*(math.pi/6) < math.atan((x2-x1) / (y2-y1)) < 7*(math.pi)/6:
+    elif 5*(math.pi/6) < 180-angle < (math.pi):
         print('passup')
         p.keyDown('up')
         p.keyDown('s')
-        time.sleep(0.4)
+        time.sleep(hold)
         p.keyUp('up')
         p.keyUp('s')
 
-    elif 7*(math.pi/6) < math.atan((x2-x1) / (y2-y1)) < 4*(math.pi)/3:
+    elif math.pi < 180+angle < 7*(math.pi)/6:
+        print('passup')
+        p.keyDown('up')
+        p.keyDown('s')
+        time.sleep(hold)
+        p.keyUp('up')
+        p.keyUp('s')
+
+    elif 7*(math.pi/6) < 180+angle < 4*(math.pi)/3:
         print('passupleft')
         p.keyDown('up')
         p.keyDown('left')
         p.keyDown('s')
-        time.sleep(0.4)
+        time.sleep(hold)
         p.keyUp('left')
         p.keyUp('up')
         p.keyUp('s')
@@ -99,9 +125,23 @@ def pass_ball(x1,y1,x2,y2):
     # elif 10*(math.pi/3) <math.atan((x2-x1) / (y2-y1)) < 11*(math.pi)/6:
     else:
         p.keyDown('s')
-        time.sleep(0.1)
+        time.sleep(hold)
         print('SUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIii')
         p.keyUp('s')
+    time.sleep(0.4)
+# agr two specfic line se bahor hai to dont kick
+# agr koi bhi nhi aspas to phr aony pass rakhni
+# atleast some distance ry har banday se or total distanc eki cost maximium rhay...
+# if akela or koi bnada spas nhi to dorect goal
+
+def goaler():
+    m1,b1=line(548,174,381,7)
+    m2,b2=line(548,305,381,460)
+
+    
+
+
+
 
 
 # d = {}
@@ -252,18 +292,18 @@ while True:
             cv.circle(blank, md_Y, 10, (0, 255, 255), -1)
             cv.circle(blank2, md_Y, 8, (0, 255, 255), -1)
 
-    for i in d:
-        for j in d:
-            if i != j:
-                if i == 'ball':
-                    # cv.line(img, d[i], d[j], (0, 255, 255), 1)
-                    cv.line(blank, d[i], d[j], (0, 255, 255), 1)
-                elif 'Red' in i:
-                    # cv.line(img, d[i], d[j], (0, 0, 255), 1)
-                    cv.line(blank, d[i], d[j], (0, 0, 255), 1)
-                else:
-                    # cv.line(img, d[i], d[j], (255, 0, 0), 1)
-                    cv.line(blank, d[i], d[j], (255, 0, 0), 1)
+        for i in d:
+            for j in d:
+                if i != j:
+                    if i == 'ball':
+                        # cv.line(img, d[i], d[j], (0, 255, 255), 1)
+                        cv.line(blank, d[i], d[j], (0, 255, 255), 1)
+                    elif 'Red' in i:
+                        # cv.line(img, d[i], d[j], (0, 0, 255), 1)
+                        cv.line(blank, d[i], d[j], (0, 0, 255), 1)
+                    else:
+                        # cv.line(img, d[i], d[j], (255, 0, 0), 1)
+                        cv.line(blank, d[i], d[j], (255, 0, 0), 1)
 
     # print (display_adj_matrix(d))
     adj_mat = display_adj_matrix(d, lst, d1)
@@ -286,7 +326,7 @@ while True:
     if countB > 10:  # and d['ball'][0] < 423
         if ((len(red_Y2) > 3) and d['ball'][0] < 423):
             p.keyDown('s')
-        elif len(red_Y) >= 2 and d['ball'][0] < 202:
+        elif len(red_Y) >= 1 and d['ball'][0] < 202:
             p.keyDown('s')
             p.keyDown('a')
         else:
@@ -301,17 +341,17 @@ while True:
 
     # {'Red0': 0, 'Red1': 1, 'Red2': 2, 'Red3': 3, 'Red4': 4, 'Red5': 5, 'Red6': 6, 'Red7': 7, 'Red8': 8, 'Red9': 9, 'Red10': 10, 'Blue0': 11, 'Blue1': 12, 'Blue2': 13, 'Blue3': 14, 'Blue4': 15, 'Blue5': 16, 'Blue6': 17, 'Blue7': 18, 'Blue8': 19, 'Blue9': 20, 'Blue10': 21, 'ball': 22}
     else:
-
         teammates = sorted(adj_mat[22][11:22], key=lambda x: x[0])
         opp = sorted(adj_mat[22][0:11], key=lambda y: y[0])
         run = True
         if d['ball'][0]>410:
+
             for i in opp[:5]:
                 if d[d2[i[1]]][0] < d['ball'][0]:
+
                     # bhag()
                     pass
        
-
         kepp_ball=True
 
         for i in teammates:
@@ -330,29 +370,20 @@ while True:
             m, b = line(x1, y1, x2, y2)
 
             should_pass = True
-            ynew = m*x2 + b+50  # distance between ball and the next player se ooper wala distance jispe line end horhi hai. parallelogra ki
+            ynew = m*x2 + b-40  # distance between ball and the next player se ooper wala distance jispe line end horhi hai. parallelogra ki
             diss = dist(x1, y1, x2, ynew)
             # cv.line(blank, (x1, y1), (x2, ynew), (255,0,0), 10)
             if opp_i[0] > 40:
-                for i in adj_mat[22][0:11]:
-                    if i[0] < diss:
-                        a1, b1 = d[d2[i[1]]]
-                        if (b1 > 1.15*m*a1 + b+40) or b1 < (0.9*m*a1 + b-40):
+                for k in adj_mat[22][0:11]:
+                    if k[0] < diss:
+                        a1, b1 = d[d2[k[1]]]
+                        if (b1 > 0.9*m*a1 + b+30) or b1 < (1.15*m*a1 + b-30):
                             pass
                         else:
                             should_pass = False
                             break
                 if should_pass:
-                    pass_ball(x1,y1,x2,y2)
+                    pass_ball(x1,y1,x2,y2,i[0])
                     keepball=False
                     print('passsssssssssssssssssssssssssssssssssssssssssssss')
 
-        if keepball==True:
-            pass
-
-
-
-        
-
-    # time.sleep(1)ss
-# sss
