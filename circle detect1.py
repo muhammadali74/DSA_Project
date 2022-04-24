@@ -8,6 +8,46 @@ import os
 import sys
 
 
+def out_edges (G, i):
+    return G[i]
+
+
+def push (l, a):
+    l.append (a)
+
+
+def pop (l):
+    x = l[-1]
+    del l[-1]
+    return x
+
+
+def addNodes2 (G, val):
+  G1 = {}
+  for i in G:
+    G1[i] = val
+  return G1
+
+
+def P_enqueue (Q, label, p):
+  for i in range (len(Q)):
+    if Q[i][0] == label:
+      del Q[i]
+      break
+  for i in range (len(Q)):
+    if Q[i][1] > p:
+      Q.insert (i, (label, p))
+      return 
+  Q.append ((label, p))
+  return
+
+
+def dequeue (l):
+  x = l[0]
+  del l[0]
+  return x
+
+
 def mid_point(x1, y1, x2, y2):
     x = (x1 + x2) // 2
     y = (y1 + y2) // 2
@@ -38,6 +78,32 @@ def line(x1, y1, x2, y2):
     m = (y2-y1)/(x2-x1)
     b = y1-m*x1
     return m, b
+
+
+def shortest_path (G, s):
+  Dist = addNodes2 (G, math.inf)
+  Dist[s] = 0
+
+  PQ =[]
+  P_enqueue (PQ, s, 0)
+
+  Prev = addNodes2  (G, None)
+  Prev[0] = 0
+
+  while len (PQ) > 0:
+    u = dequeue (PQ)
+    children = out_edges (G, u)
+
+    for child, weight in children:
+      alt = Dist[u] + weight
+
+      if alt < Dist [child]:
+        P_enqueue (PQ, child, alt)
+        Dist[child] = alt
+        Prev[child] = u
+
+  print (Dist)
+  print (Prev)
 
 
 def pass_ball(x1,y1,x2,y2,dis):
