@@ -1,9 +1,23 @@
+import random
+
+d1 = {'Red0': 0, 'Red1': 1, 'Red2': 2, 'Red3': 3, 'Red4': 4, 'Red5': 5, 'Red6': 6, 'Red7': 7, 'Red8': 8, 'Red9': 9, 'Red10': 10, 'Blue0': 11, 'Blue1': 12, 'Blue2': 13, 'Blue3': 14, 'Blue4': 15, 'Blue5': 16, 'Blue6': 17, 'Blue7': 18, 'Blue8': 19, 'Blue9': 20, 'Blue10': 21, 'ball': 22}
+
+d = {'Red0': (628, 545), 'Red1': (723, 537), 'Red2': (589, 422), 'Red3': (665, 408), 'Red4': (763, 387), 'Red5': (1029, 333), 'Red6': (774, 277), 'Red7': (666, 260), 'Red8': (592, 246), 'Red9': (724, 132), 'Red10': (628, 123), 'Blue0': (
+    510, 548), 'Blue1': (531, 544), 'Blue2': (524, 535), 'Blue3': (513, 539), 'Blue4': (407, 439), 'Blue5': (402, 430), 'Blue6': (387, 436), 'Blue7': (473, 407), 'Blue8': (493, 407), 'Blue9': (486, 397), 'Blue10': (482, 396), 'ball': (561, 315)}
+
+def get_enemy(graph,node):
+    opp_lst = [x for x in graph[node][0:11] if x[0] < 22]
+    return opp_lst
+
 def dijkstra(graph, start):
     # we can also make seperate lists/dictionaries ofr red and blue nodes
     nodes_to_take = []
     for q in d:
         if d[q][0] > 410 and 'Blue' in q:
             nodes_to_take.append(d1[q])
+    nodes_to_take.append(22)
+
+    print (nodes_to_take)
 
     back_path = []
 
@@ -13,10 +27,12 @@ def dijkstra(graph, start):
     # This contains whether a node was already visited
     visited = []
     for i in range(len(graph)):
-        if i in nodes_to_take:
+        # if i in nodes_to_take:
             visited.append(False)
-        else:
-            visited.append(True)
+        # else:
+        #     visited.append(True)
+
+    print (visited)
 
     # The distance from the start node to itself is of course 0
     distances[start] = 0
@@ -28,29 +44,49 @@ def dijkstra(graph, start):
         shortest_index = -1
         for i in range(len(graph)):
             # ... by going through all nodes that haven't been visited yet
+            # print (distances[i], shortest_distance)
             if distances[i] < shortest_distance and not visited[i]:
                 shortest_distance = distances[i]
                 shortest_index = i
+            # print (distances)
 
         # print("Visiting node " + str(shortest_index) + " with current distance " + str(shortest_distance))
 
         if shortest_index == -1:
-            # There was no node not yet visited --> We are done
+        # a = True
+        # for i in visited:
+        #     if i == False:
+        #         a = False
+        # There was no node not yet visited --> We are done
+        # if a :
             return distances, distancenode
 
         # ...then, for all neighboring nodes that haven't been visited yet....
         for i in range(11, len(graph[shortest_index])):
+            if i in nodes_to_take:
             # ...if the path over this edge is shorter...
-            opps = get_enemy(adj_mat, i)
-            if graph[shortest_index][i] != 0 and distances[i] > distances[shortest_index] + graph[shortest_index][i] and len(opps) <= 1:
-                # ...Save this path as new shortest path.
-                distances[i] = distances[shortest_index] + \
-                    graph[shortest_index][i]
-                distancenode[i] = shortest_index
+                opps = get_enemy(graph, i)
+                if graph[shortest_index][i][0] != 0 and distances[i] > distances[shortest_index] + graph[shortest_index][i][0]:
+                    # ...Save this path as new shortest path.
+                    distances[i] = distances[shortest_index] + graph[shortest_index][i][0]
+                    distancenode[i] = shortest_index
 
-                # print("Updating distance of node " + str(i) + " to " + str(distances[i]))
+                    print("Updating distance of node " + str(i) + " to " + str(distances[i]))
 
         # Lastly, note that we are finished with this node.
         visited[shortest_index] = True
         # print("Visited nodes: " + str(visited))
-        # print("Currently lowest distances: " + str(distances))
+        # print("Currently lowest distances: " + str(distances))'
+
+adj_mat = []
+for i in range(23):
+    a = []
+    for j in range(23):
+        if i == j:
+            a.append((0, j))
+        else:
+            a.append((random.uniform(1, 100), j))
+    adj_mat.append(a)
+
+
+print (dijkstra(adj_mat, 15))
