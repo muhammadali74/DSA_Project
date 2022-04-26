@@ -49,7 +49,25 @@ def line(x1, y1, x2, y2):
     b = y1-m*x1
     return m, b
 
+
+def an (x1, y1, x2, y2):
+    mag_v1 = 100
+    mag_v2 = dist(x1, y1, x2, y2)
+
+    val = (100*(x2-x1)) / (mag_v1*mag_v2)
+
+    ang = math.acos(val)
+
+    if y2 > y1:
+      return (2*math.pi) - ang
+
+    else:
+      return ang
+
+
+
 def run(x1,y1):
+    pass
     
 
 
@@ -59,7 +77,8 @@ def pass_ball(x1, y1, x2, y2, dis):
     if y2-y1 == 0:
         y2 = 1
 
-    angle = math.atan((x2-x1) / (y2-y1))
+    # angle = math.atan((x2-x1) / (y2-y1))
+    angle = an (x1, y1, x2, y2)
 
     if dis > 140:
         hold = 0.4
@@ -69,7 +88,7 @@ def pass_ball(x1, y1, x2, y2, dis):
     if dis < 200:
         hold2 = 0.4
     else:
-        hold2 = 
+        hold2 = ((dis-200)*(3/500)) + (dis/500)
 
     if 0 < angle < (math.pi)/6:
         #  print(math.atan(x2-x1/(y2-y1))
@@ -97,14 +116,14 @@ def pass_ball(x1, y1, x2, y2, dis):
         time.sleep(hold)
         p.keyUp('right')
         p.keyUp('s')
-    elif (math.pi/2) < 180-angle < 2*(math.pi)/3:
+    elif (math.pi/2) < angle < 2*(math.pi)/3:
         print('passright')
         p.keyDown('right')
         p.keyDown('s')
         time.sleep(hold)
         p.keyUp('right')
         p.keyUp('s')
-    elif 2*(math.pi/3) < 180-angle < 5*(math.pi)/6:
+    elif 2*(math.pi/3) < angle < 5*(math.pi)/6:
         print('upright')
         p.keyDown('up')
         p.keyDown('right')
@@ -114,7 +133,7 @@ def pass_ball(x1, y1, x2, y2, dis):
         p.keyUp('up')
         p.keyUp('s')
 
-    elif 5*(math.pi/6) < 180-angle < (math.pi):
+    elif 5*(math.pi/6) < angle < (math.pi):
         print('passup')
         p.keyDown('up')
         p.keyDown('s')
@@ -122,7 +141,7 @@ def pass_ball(x1, y1, x2, y2, dis):
         p.keyUp('up')
         p.keyUp('s')
 
-    elif math.pi < 180+angle < 7*(math.pi)/6:
+    elif math.pi < angle < 7*(math.pi)/6:
         print('passup')
         p.keyDown('up')
         p.keyDown('s')
@@ -130,7 +149,7 @@ def pass_ball(x1, y1, x2, y2, dis):
         p.keyUp('up')
         p.keyUp('s')
 
-    elif 7*(math.pi/6) < 180+angle < 4*(math.pi)/3:
+    elif 7*(math.pi/6) < angle < 4*(math.pi)/3:
         print('passupleft')
         p.keyDown('up')
         p.keyDown('left')
