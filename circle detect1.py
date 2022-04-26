@@ -10,12 +10,13 @@ import sys
 
 
 def enqueue_p(Q, elem, num=2):
-  for i in range (len(Q)):
-    if Q[i][num] > elem[num]:
-      Q.insert (i, elem)
-      return 
-  Q.append (elem)
-  return
+    for i in range(len(Q)):
+        if Q[i][num] > elem[num]:
+            Q.insert(i, elem)
+            return
+    Q.append(elem)
+    return
+
 
 def mid_point(x1, y1, x2, y2):
     x = (x1 + x2) // 2
@@ -48,6 +49,10 @@ def line(x1, y1, x2, y2):
     b = y1-m*x1
     return m, b
 
+def run(x1,y1):
+    
+
+
 
 def pass_ball(x1, y1, x2, y2, dis):
     r_n = dist(y1, x1, y2, x2)
@@ -61,12 +66,19 @@ def pass_ball(x1, y1, x2, y2, dis):
     else:
         hold = dis/325
 
+    if dis < 200:
+        hold2 = 0.4
+    else:
+        hold2 = 
+
     if 0 < angle < (math.pi)/6:
         #  print(math.atan(x2-x1/(y2-y1))
-        print('passdown')
+        print('passdownnew')
         p.keyDown('down')
+        p.keyDown('right')
         p.keyDown('s')
         time.sleep(hold)
+        p.keyUp('right')
         p.keyUp('down')
         p.keyUp('s')
     elif (math.pi/6) < angle < (math.pi) / 3:
@@ -128,15 +140,12 @@ def pass_ball(x1, y1, x2, y2, dis):
         p.keyUp('up')
         p.keyUp('s')
 
-    # elif 4*(math.pi/3) <math.atan((x2-x1) / (y2-y1)) < 10*(math.pi)/6:
-
-    # elif 10*(math.pi/3) <math.atan((x2-x1) / (y2-y1)) < 11*(math.pi)/6:
     else:
         p.keyDown('s')
         time.sleep(hold)
         print('SUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII')
         p.keyUp('s')
-    time.sleep(0.4)
+    time.sleep(hold2)
 # agr two specfic line se bahor hai to dont kick
 # agr koi bhi nhi aspas to phr aony pass rakhni
 # atleast some distance ry har banday se or total distanc eki cost maximium rhay...
@@ -147,51 +156,58 @@ def goaler():
     m1, b1 = line(548, 174, 381, 7)
     m2, b2 = line(548, 305, 381, 460)
 
-    destination= None
+    destination = None
     list = []
     for i in d:
-        if d[i][0] >= 470:
+        if d[i][0] >= 430:
             if d[i][1] > (m1*d[i][0] + b1) and d[i][1] < (m2*d[i][0] + b2) and 'Blue' in i:
-                enqueue_p(list,(i, d1[i], 548-d[i][0]))
+                enqueue_p(list, (i, d1[i], 548-d[i][0]))
             # elif 'Red' in i:
             #     enqueue_p(enemy,(i, d1[i]))
 
-    destination=False
+    destination = False
 
     for l in list:
         opp_lst = [x for x in adj_mat[l[1]][0:11] if x[0] < 22]
-        if len(opp_lst)>1:
+        if len(opp_lst) > 1:
             pass
         else:
-            destination=l
+            destination = l
             break
-    
+
     if destination:
-        dx,dy=dijkstra(adj_mat,destination)
-        print(dx,dy)
+        dx, dy = dijkstra(adj_mat, destination[1])
+        print(dx, dy)
         print('Garmi dekho rozay choro nasahy karo..............................')
+        return dy
+
+    return []
 
 
 def dijkstra(graph, start):
-# we can also make seperate lists/dictionaries ofr red and blue nodes
+    # we can also make seperate lists/dictionaries ofr red and blue nodes
     nodes_to_take = []
     for q in d:
-        if d[q][0] > 410 and 'Blue' in q:
+        if d[q][0] > 400 and 'Blue' in q:
             nodes_to_take.append(d1[q])
+    nodes_to_take.append(22)
 
-    back_path=[]
-        
+    print(nodes_to_take)
+
+    back_path = []
 
     distances = [float("inf") for _ in range(len(graph))]
-    distancenode={}
+    distancenode = {}
 
     # This contains whether a node was already visited
     visited = []
     for i in range(len(graph)):
-        if i in nodes_to_take:
-            visited.append(False)
-        else:
-            visited.append(True)
+        # if i in nodes_to_take:
+        visited.append(False)
+        # else:
+        #     visited.append(True)
+
+    print(visited)
 
     # The distance from the start node to itself is of course 0
     distances[start] = 0
@@ -203,36 +219,52 @@ def dijkstra(graph, start):
         shortest_index = -1
         for i in range(len(graph)):
             # ... by going through all nodes that haven't been visited yet
+            # print (distances[i], shortest_distance)
             if distances[i] < shortest_distance and not visited[i]:
                 shortest_distance = distances[i]
                 shortest_index = i
+            # print (distances)
 
         # print("Visiting node " + str(shortest_index) + " with current distance " + str(shortest_distance))
 
         if shortest_index == -1:
+            # a = True
+            # for i in visited:
+            #     if i == False:
+            #         a = False
             # There was no node not yet visited --> We are done
-            return distances,distancenode
+            # if a :
+            path = []
+            parent = 22
+            while parent != start:
+                path.insert(0, (distancenode[parent], parent))
+                parent = distancenode[parent]
+
+            return distances, path
 
         # ...then, for all neighboring nodes that haven't been visited yet....
-        for i in range(11,len(graph[shortest_index])):
-            # ...if the path over this edge is shorter...
-            opps = get_enemy(adj_mat,i)
-            if graph[shortest_index][i] != 0 and distances[i] > distances[shortest_index] + graph[shortest_index][i] and len(opps)<=1:
-                # ...Save this path as new shortest path.
-                distances[i] = distances[shortest_index] + graph[shortest_index][i]
-                distancenode[i] = shortest_index
+        for i in range(11, len(graph[shortest_index])):
+            if i in nodes_to_take:
+                # ...if the path over this edge is shorter...
+                opps = get_enemy(graph, i)
+                if graph[shortest_index][i][0] != 0 and distances[i] > distances[shortest_index] + graph[shortest_index][i][0]:
+                    # ...Save this path as new shortest path.
+                    distances[i] = distances[shortest_index] + \
+                        graph[shortest_index][i][0]
+                    distancenode[i] = shortest_index
 
-                # print("Updating distance of node " + str(i) + " to " + str(distances[i]))
+                    print("Updating distance of node " +
+                          str(i) + " to " + str(distances[i]))
 
         # Lastly, note that we are finished with this node.
         visited[shortest_index] = True
         # print("Visited nodes: " + str(visited))
-        # print("Currently lowest distances: " + str(distances))
+        # print("Currently lowest distances: " + str(distances))'
 
-def get_enemy(graph,node):
+
+def get_enemy(graph, node):
     opp_lst = [x for x in graph[node][0:11] if x[0] < 22]
     return opp_lst
-
 
 
 # d = {}
@@ -414,7 +446,7 @@ while True:
     print(red_Y)
 
     # Defensive Strategy
-    if countB > 10:  # and d['ball'][0] < 423
+    if countB > 10 and d['ball'][0] < 423:
         if ((len(red_Y2) > 3) and d['ball'][0] < 423):
             p.keyDown('s')
         elif len(red_Y) >= 1 and d['ball'][0] < 202:
@@ -435,8 +467,26 @@ while True:
         teammates = sorted(adj_mat[22][11:22], key=lambda x: x[0])
         opp = sorted(adj_mat[22][0:11], key=lambda y: y[0])
         run = True
-        if d['ball'][0] > 410:
-            goaler()
+        if d['ball'][0] > 400:
+            list_of_options = goaler()
+            if len(list_of_options) == 0:
+                pass  # apny pass rakho
+            elif len(list_of_options) == 1:
+                x1, y1 = d[d2[list_of_options[0][1]]]
+                x2, y2 = d[d2[list_of_options[0][0]]]
+                pass_ball(
+                    x1, y1, x2, y2, adj_mat[list_of_options[0][1]][list_of_options[0][0]][0])
+                p.keyDown('a')
+                print('ball kicked')
+                time.sleep(0.3)
+                p.keyUp('a')
+
+            elif len(list_of_options) > 1:
+                x1, y1 = d[d2[list_of_options[-1][1]]]
+                x2, y2 = d[d2[list_of_options[-1][0]]]
+                pass_ball(
+                    x1, y1, x2, y2, adj_mat[list_of_options[0][1]][list_of_options[0][0]][0])
+
         #     for i in opp[:5]:
         #         if d[d2[i[1]]][0] < d['ball'][0]:
 
@@ -478,7 +528,7 @@ while True:
                     keepball = False
                     print('passsssssssssssssssssssssssssssssssssssssssssssss')
 
-
-
-    time.sleep(4)
-#ss
+    # time.sleep(4)
+    p.keyUp('s')
+    p.keyUp('a')
+# sssss

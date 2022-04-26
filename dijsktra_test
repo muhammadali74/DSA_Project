@@ -59,7 +59,13 @@ def dijkstra(graph, start):
         #         a = False
         # There was no node not yet visited --> We are done
         # if a :
-            return distances, distancenode
+            path=[]
+            parent=22
+            while parent!=start:
+                path.insert(0, (distancenode[parent],parent))
+                parent=distancenode[parent]
+            
+            return distances, path
 
         # ...then, for all neighboring nodes that haven't been visited yet....
         for i in range(11, len(graph[shortest_index])):
@@ -73,10 +79,13 @@ def dijkstra(graph, start):
 
                     print("Updating distance of node " + str(i) + " to " + str(distances[i]))
 
+        
+
         # Lastly, note that we are finished with this node.
         visited[shortest_index] = True
         # print("Visited nodes: " + str(visited))
         # print("Currently lowest distances: " + str(distances))'
+        
 
 adj_mat = []
 for i in range(23):
