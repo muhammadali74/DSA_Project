@@ -13,7 +13,7 @@ import sys
 
 def enqueue_p(Q, elem, num=2):
     for i in range(len(Q)):
-        # if Q[i][num] > elem[num]:S    con_R, contours_R = cv.findContours(
+        # if Q[i][num] > elem[num]:S    con_R, contours_R = cv.findContours(aa
         if Q[i][num] > elem[num]:
             Q.insert(i, elem)
             return
@@ -87,11 +87,12 @@ def pass_ball(x1, y1, x2, y2, dis):
         hold = 0.4
     else:
         hold = dis/325
-
-    if dis < 200:
-        hold2 = 0.4
+    if dis < 100:
+        hold2 = 0.5
+    elif dis < 200:
+        hold2 = 1
     else:
-        hold2 = ((dis-200)*(3/500)) + (dis/500)
+        hold2 = ((dis-200)*(1/200)) + (dis/200)
 
     if 0 < angle < (math.pi)/6:
         #  print(math.atan(x2-x1/(y2-y1))
@@ -467,8 +468,9 @@ while True:
     red_Y2 = [d[x][0] for x in d if x[0] == 'R' and d[x][0] < 325]
     print(red_Y)
 
-    # Defensive Strategy
+    # Defensive Strategyaa
     if countB > 10 and d['ball'][0] < 423:
+        print('defense')
         if ((len(red_Y2) > 3) and d['ball'][0] < 423):
             p.keyDown('s')
         elif len(red_Y) >= 1 and d['ball'][0] < 202:
@@ -493,8 +495,11 @@ while True:
         # run = True
         x1, y1 = d['ball']
         if d['ball'][0] >= 450:
-            for i in range(5):
-                p.keyDown('a')
+            p.keyDown('a')
+            print('ball kicked')
+            time.sleep(0.3)
+            h   p.keyUp('a')
+
 
         elif d['ball'][0] >= 400:
             list_of_options = goaler()
@@ -517,6 +522,8 @@ while True:
                     for i in range(10):
                         p.keyDown('shift')
                         p.keyDown('right')
+                    p.keyUp('shift')
+                    p.keyUp('right')
 
             elif len(list_of_options) == 1:
                 x1, y1 = d[d2[list_of_options[0][1]]]
@@ -573,6 +580,7 @@ while True:
                         pass_ball(x1, y1, x2, y2, i[0])
                         keepball = False
                         print('passsssssssssssssssssssssssssssssssssssssssssssss')
+                        break
 
     # time.sleep(4)
 # sssss
