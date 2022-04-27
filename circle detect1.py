@@ -585,10 +585,31 @@ while True:
         # run = True
         x1, y1 = d['ball']
         if d['ball'][0] >= 450:
-            p.keyDown('a')
-            print('ball kicked')
-            time.sleep(0.3)
-            p.keyUp('a')
+            if y1 < 174:
+                p.keyDown('down')
+                p.keyDown('right')
+                p.keyDown('a')
+                print('ball kicked')
+                time.sleep(0.3)
+                p.keyUp('down')
+                p.keyUp('right')
+                p.keyUp('a')
+            elif 174 < y1 < 305:
+                p.keyDown('right')
+                p.keyDown('a')
+                print('ball kicked')
+                time.sleep(0.3)
+                p.keyUp('right')
+                p.keyUp('a')
+            else:
+                p.keyDown('up')
+                p.keyDown('right')
+                p.keyDown('a')
+                print('ball kicked')
+                time.sleep(0.3)
+                p.keyUp('up')
+                p.keyUp('right')
+                p.keyUp('a')
 
 
         elif d['ball'][0] >= 400:
