@@ -94,9 +94,89 @@ def pass_ball(x1, y1, x2, y2, dis):
     else:
         hold2 = ((dis-200)*(1/200)) + (dis/200)
 
-    if 0 < angle < (math.pi)/6:
-        #  print(math.atan(x2-x1/(y2-y1))
-        print('passdownnew')
+    # if 0 < angle < (math.pi)/6:
+    #     #  print(math.atan(x2-x1/(y2-y1))
+    #     print('passdownnew')
+    #     p.keyDown('down')
+    #     p.keyDown('right')
+    #     p.keyDown('s')
+    #     time.sleep(hold)
+    #     p.keyUp('right')
+    #     p.keyUp('down')
+    #     p.keyUp('s')
+    # elif (math.pi/6) < angle < (math.pi) / 3:
+    #     print('downright')
+    #     p.keyDown('down')
+    #     p.keyDown('right')
+    #     p.keyDown('s')
+    #     time.sleep(hold)
+    #     p.keyUp('right')
+    #     p.keyUp('down')
+    #     p.keyUp('s')
+    # elif (math.pi/3) < angle < (math.pi)/2:
+    #     print('passright')
+    #     p.keyDown('right')
+    #     p.keyDown('s')
+    #     time.sleep(hold)
+    #     p.keyUp('right')
+    #     p.keyUp('s')
+    # elif (math.pi/2) < angle < 2*(math.pi)/3:
+    #     print('passright')
+    #     p.keyDown('right')
+    #     p.keyDown('s')
+    #     time.sleep(hold)
+    #     p.keyUp('right')
+    #     p.keyUp('s')
+    # elif 2*(math.pi/3) < angle < 5*(math.pi)/6:
+    #     print('upright')
+    #     p.keyDown('up')
+    #     p.keyDown('right')
+    #     p.keyDown('s')
+    #     time.sleep(hold)
+    #     p.keyUp('right')
+    #     p.keyUp('up')
+    #     p.keyUp('s')
+
+    # elif 5*(math.pi/6) < angle < (math.pi):
+    #     print('passup')
+    #     p.keyDown('up')
+    #     p.keyDown('s')
+    #     time.sleep(hold)
+    #     p.keyUp('up')
+    #     p.keyUp('s')
+
+    # elif math.pi < angle < 7*(math.pi)/6:
+    #     print('passup')
+    #     p.keyDown('up')
+    #     p.keyDown('s')
+    #     time.sleep(hold)
+    #     p.keyUp('up')
+    #     p.keyUp('s')
+
+    # elif 7*(math.pi/6) < angle < 4*(math.pi)/3:
+    #     print('passupleft')
+    #     p.keyDown('up')
+    #     p.keyDown('left')
+    #     p.keyDown('s')
+    #     time.sleep(hold)
+    #     p.keyUp('left')
+    #     p.keyUp('up')
+    #     p.keyUp('s')
+
+    # else:
+    #     p.keyDown('s')
+    #     time.sleep(hold)
+    #     print('SUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII')
+    #     p.keyUp('s')
+    # time.sleep(hold2)
+    if 4*(math.pi)/3 < angle < 10*(math.pi)/6:
+        p.keyDown('down')
+        p.keyDown('s')
+        time.sleep(hold)
+        p.keyUp('down')
+        p.keyUp('s')
+
+    elif 10*(math.pi)/6 < angle < 11*(math.pi)/6:
         p.keyDown('down')
         p.keyDown('right')
         p.keyDown('s')
@@ -104,64 +184,74 @@ def pass_ball(x1, y1, x2, y2, dis):
         p.keyUp('right')
         p.keyUp('down')
         p.keyUp('s')
+
+    elif 11*(math.pi)/6 < angle < (math.pi)/6:
+        print('pass right')
+        p.keyDown('right')
+        p.keyDown('s')
+        time.sleep(hold)
+        p.keyUp('up')
+        p.keyUp('s')
+
     elif (math.pi/6) < angle < (math.pi) / 3:
         print('downright')
-        p.keyDown('down')
+        p.keyDown('up')
         p.keyDown('right')
         p.keyDown('s')
         time.sleep(hold)
         p.keyUp('right')
-        p.keyUp('down')
+        p.keyUp('up')
         p.keyUp('s')
-    elif (math.pi/3) < angle < (math.pi)/2:
+
+    elif (math.pi/3) < angle < 2*(math.pi)/3:
         print('passright')
-        p.keyDown('right')
-        p.keyDown('s')
-        time.sleep(hold)
-        p.keyUp('right')
-        p.keyUp('s')
-    elif (math.pi/2) < angle < 2*(math.pi)/3:
-        print('passright')
-        p.keyDown('right')
-        p.keyDown('s')
-        time.sleep(hold)
-        p.keyUp('right')
-        p.keyUp('s')
-    elif 2*(math.pi/3) < angle < 5*(math.pi)/6:
-        print('upright')
         p.keyDown('up')
-        p.keyDown('right')
         p.keyDown('s')
         time.sleep(hold)
-        p.keyUp('right')
         p.keyUp('up')
         p.keyUp('s')
+    # elif 2*(math.pi/3) < angle < 5*(math.pi)/6:
+    #     print('passright')
+    #     p.keyDown('right')
+    #     p.keyDown('s')
+    #     time.sleep(hold)
+    #     p.keyUp('right')
+    #     p.keyUp('s')
+    # elif 2*(math.pi/3) < angle < 5*(math.pi)/6:
+    #     print('upright')
+    #     p.keyDown('up')
+    #     p.keyDown('right')
+    #     p.keyDown('s')
+    #     time.sleep(hold)
+    #     p.keyUp('right')
+    #     p.keyUp('up')
+    #     p.keyUp('s')
 
-    elif 5*(math.pi/6) < angle < (math.pi):
-        print('passup')
-        p.keyDown('up')
-        p.keyDown('s')
-        time.sleep(hold)
-        p.keyUp('up')
-        p.keyUp('s')
+    # elif 5*(math.pi/6) < angle < (math.pi):
+    #     print('passup')
+    #     p.keyDown('up')
+    #     p.keyDown('s')
+    #     time.sleep(hold)
+    #     p.keyUp('up')
+    #     p.keyUp('s')
 
-    elif math.pi < angle < 7*(math.pi)/6:
-        print('passup')
-        p.keyDown('up')
-        p.keyDown('s')
-        time.sleep(hold)
-        p.keyUp('up')
-        p.keyUp('s')
+    # elif math.pi < angle < 7*(math.pi)/6:
+    #     print('passup')
+    #     p.keyDown('up')
+    #     p.keyDown('s')
+    #     time.sleep(hold)
+    #     p.keyUp('up')
+    #     p.keyUp('s')
 
-    elif 7*(math.pi/6) < angle < 4*(math.pi)/3:
-        print('passupleft')
-        p.keyDown('up')
-        p.keyDown('left')
-        p.keyDown('s')
-        time.sleep(hold)
-        p.keyUp('left')
-        p.keyUp('up')
-        p.keyUp('s')
+    # elif 7*(math.pi/6) < angle < 4*(math.pi)/3:
+    #     print('passupleft')
+    #     p.keyDown('up')
+    #     p.keyDown('left')
+    #     p.keyDown('s')
+    #     time.sleep(hold)
+    #     p.keyUp('left')
+    #     p.keyUp('up')
+    #     p.keyUp('s')
 
     else:
         p.keyDown('s')
@@ -498,7 +588,7 @@ while True:
             p.keyDown('a')
             print('ball kicked')
             time.sleep(0.3)
-            h   p.keyUp('a')
+            p.keyUp('a')
 
 
         elif d['ball'][0] >= 400:
