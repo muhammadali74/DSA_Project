@@ -9,11 +9,9 @@ import os
 import sys
 
 
-
-
 def enqueue_p(Q, elem, num=2):
     for i in range(len(Q)):
-        # if Q[i][num] > elem[num]:S    con_R, contours_R = cv.findContours(aa
+        # if Q[i][num] > elem[num]:
         if Q[i][num] > elem[num]:
             Q.insert(i, elem)
             return
@@ -53,7 +51,7 @@ def line(x1, y1, x2, y2):
     return m, b
 
 
-def an (x1, y1, x2, y2):
+def an(x1, y1, x2, y2):
     mag_v1 = 100
     mag_v2 = dist(x1, y1, x2, y2)
 
@@ -62,113 +60,39 @@ def an (x1, y1, x2, y2):
     ang = math.acos(val)
 
     if y2 > y1:
-      return (2*math.pi) - ang
+        return (2*math.pi) - ang
 
     else:
-      return ang
+        return ang
 
 
-
-def run(x1,y1):
-    pass
+# def run(x1, y1, opp):
+#     a1, a2 = x1+40, y1
+#     b1, b2 = None, None
+def run(field,xm,ym):
+    
     
 
 
-
 def pass_ball(x1, y1, x2, y2, dis):
-    r_n = dist(y1, x1, y2, x2)
+    # r_n = dist(y1, x1, y2, x2)
     if y2-y1 == 0:
         y2 = 1
 
     # angle = math.atan((x2-x1) / (y2-y1))
-    angle = an (x1, y1, x2, y2)
+    angle = an(x1, y1, x2, y2)
 
     if dis > 140:
         hold = 0.4
     else:
         hold = dis/325
     if dis < 100:
-        hold2 = 0.5
+        hold2 = 0.4
     elif dis < 200:
-        hold2 = 1
+        hold2 = 0.8
     else:
         hold2 = ((dis-200)*(1/200)) + (dis/200)
 
-    # if 0 < angle < (math.pi)/6:
-    #     #  print(math.atan(x2-x1/(y2-y1))
-    #     print('passdownnew')
-    #     p.keyDown('down')
-    #     p.keyDown('right')
-    #     p.keyDown('s')
-    #     time.sleep(hold)
-    #     p.keyUp('right')
-    #     p.keyUp('down')
-    #     p.keyUp('s')
-    # elif (math.pi/6) < angle < (math.pi) / 3:
-    #     print('downright')
-    #     p.keyDown('down')
-    #     p.keyDown('right')
-    #     p.keyDown('s')
-    #     time.sleep(hold)
-    #     p.keyUp('right')
-    #     p.keyUp('down')
-    #     p.keyUp('s')
-    # elif (math.pi/3) < angle < (math.pi)/2:
-    #     print('passright')
-    #     p.keyDown('right')
-    #     p.keyDown('s')
-    #     time.sleep(hold)
-    #     p.keyUp('right')
-    #     p.keyUp('s')
-    # elif (math.pi/2) < angle < 2*(math.pi)/3:
-    #     print('passright')
-    #     p.keyDown('right')
-    #     p.keyDown('s')
-    #     time.sleep(hold)
-    #     p.keyUp('right')
-    #     p.keyUp('s')
-    # elif 2*(math.pi/3) < angle < 5*(math.pi)/6:
-    #     print('upright')
-    #     p.keyDown('up')
-    #     p.keyDown('right')
-    #     p.keyDown('s')
-    #     time.sleep(hold)
-    #     p.keyUp('right')
-    #     p.keyUp('up')
-    #     p.keyUp('s')
-
-    # elif 5*(math.pi/6) < angle < (math.pi):
-    #     print('passup')
-    #     p.keyDown('up')
-    #     p.keyDown('s')
-    #     time.sleep(hold)
-    #     p.keyUp('up')
-    #     p.keyUp('s')
-
-    # elif math.pi < angle < 7*(math.pi)/6:
-    #     print('passup')
-    #     p.keyDown('up')
-    #     p.keyDown('s')
-    #     time.sleep(hold)
-    #     p.keyUp('up')
-    #     p.keyUp('s')
-
-    # elif 7*(math.pi/6) < angle < 4*(math.pi)/3:
-    #     print('passupleft')
-    #     p.keyDown('up')
-    #     p.keyDown('left')
-    #     p.keyDown('s')
-    #     time.sleep(hold)
-    #     p.keyUp('left')
-    #     p.keyUp('up')
-    #     p.keyUp('s')
-
-    # else:
-    #     p.keyDown('s')
-    #     time.sleep(hold)
-    #     print('SUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII')
-    #     p.keyUp('s')
-    # time.sleep(hold2)
     if 4*(math.pi)/3 < angle < 10*(math.pi)/6:
         p.keyDown('down')
         p.keyDown('s')
@@ -210,55 +134,86 @@ def pass_ball(x1, y1, x2, y2, dis):
         time.sleep(hold)
         p.keyUp('up')
         p.keyUp('s')
-    # elif 2*(math.pi/3) < angle < 5*(math.pi)/6:
-    #     print('passright')
-    #     p.keyDown('right')
-    #     p.keyDown('s')
-    #     time.sleep(hold)
-    #     p.keyUp('right')
-    #     p.keyUp('s')
-    # elif 2*(math.pi/3) < angle < 5*(math.pi)/6:
-    #     print('upright')
-    #     p.keyDown('up')
-    #     p.keyDown('right')
-    #     p.keyDown('s')
-    #     time.sleep(hold)
-    #     p.keyUp('right')
-    #     p.keyUp('up')
-    #     p.keyUp('s')
-
-    # elif 5*(math.pi/6) < angle < (math.pi):
-    #     print('passup')
-    #     p.keyDown('up')
-    #     p.keyDown('s')
-    #     time.sleep(hold)
-    #     p.keyUp('up')
-    #     p.keyUp('s')
-
-    # elif math.pi < angle < 7*(math.pi)/6:
-    #     print('passup')
-    #     p.keyDown('up')
-    #     p.keyDown('s')
-    #     time.sleep(hold)
-    #     p.keyUp('up')
-    #     p.keyUp('s')
-
-    # elif 7*(math.pi/6) < angle < 4*(math.pi)/3:
-    #     print('passupleft')
-    #     p.keyDown('up')
-    #     p.keyDown('left')
-    #     p.keyDown('s')
-    #     time.sleep(hold)
-    #     p.keyUp('left')
-    #     p.keyUp('up')
-    #     p.keyUp('s')
 
     else:
+
         p.keyDown('s')
         time.sleep(hold)
         print('SUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII')
         p.keyUp('s')
     time.sleep(hold2)
+
+
+def thru(x1, y1, x2, y2, dis):
+    # r_n = dist(y1, x1, y2, x2)
+    if y2-y1 == 0:
+        y2 = 1
+
+    # angle = math.atan((x2-x1) / (y2-y1))
+    angle = an(x1, y1, x2, y2)
+
+    if dis > 140:
+        hold = 0.4
+    else:
+        hold = dis/325
+    if dis < 100:
+        hold2 = 0.4
+    elif dis < 200:
+        hold2 = 0.8
+    else:
+        hold2 = ((dis-200)*(1/200)) + (dis/200)
+
+    if 4*(math.pi)/3 < angle < 10*(math.pi)/6:
+        p.keyDown('down')
+        p.keyDown('w')
+        time.sleep(hold)
+        p.keyUp('down')
+        p.keyUp('w')
+
+    elif 10*(math.pi)/6 < angle < 11*(math.pi)/6:
+        p.keyDown('down')
+        p.keyDown('right')
+        p.keyDown('w')
+        time.sleep(hold)
+        p.keyUp('right')
+        p.keyUp('down')
+        p.keyUp('w')
+
+    elif 11*(math.pi)/6 < angle < (math.pi)/6:
+        print('pass right')
+        p.keyDown('right')
+        p.keyDown('w')
+        time.sleep(hold)
+        p.keyUp('up')
+        p.keyUp('w')
+
+    elif (math.pi/6) < angle < (math.pi) / 3:
+        print('downright')
+        p.keyDown('up')
+        p.keyDown('right')
+        p.keyDown('w')
+        time.sleep(hold)
+        p.keyUp('right')
+        p.keyUp('up')
+        p.keyUp('w')
+
+    elif (math.pi/3) < angle < 2*(math.pi)/3:
+        print('passright')
+        p.keyDown('up')
+        p.keyDown('w')
+        time.sleep(hold)
+        p.keyUp('up')
+        p.keyUp('w')
+
+    else:
+
+        p.keyDown('w')
+        time.sleep(hold)
+        print('SUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII')
+        p.keyUp('w')
+    time.sleep(hold2)
+
+
 # agr two specfic line se bahor hai to dont kick
 # agr koi bhi nhi aspas to phr aony pass rakhni
 # atleast some distance ry har banday se or total distanc eki cost maximium rhay...
@@ -291,7 +246,7 @@ def goaler():
     if destination:
         dx, dy = dijkstra(adj_mat, destination[1])
         print(dx, dy)
-        print('Garmi dekho rozay choro nasahy karo..............................')
+        print('Path Found..............................')
         return dy
 
     return []
@@ -381,7 +336,7 @@ def get_enemy(graph, node):
 
 
 # d = {}
-# count = 0ssssssssssssssss
+# count = 0
 # lower_R = np.array([75, 0, 163])sssssssssssssssssssss
 # upper_R = np.array([100, 0, 220])
 # lower_Y = np.array([30, 194, 194])
@@ -397,8 +352,8 @@ cap = cv.VideoCapture(1)
 
 # cap.set(3, 1280)
 # cap.set(4, 720)
-d = {'Red0': (628, 545), 'Red1': (723, 537), 'Red2': (589, 422), 'Red3': (665, 408), 'Red4': (763, 387), 'Red5': (1029, 333), 'Red6': (774, 277), 'Red7': (666, 260), 'Red8': (592, 246), 'Red9': (724, 132), 'Red10': (628, 123), 'Blue0': (
-    510, 548), 'Blue1': (531, 544), 'Blue2': (524, 535), 'Blue3': (513, 539), 'Blue4': (407, 439), 'Blue5': (402, 430), 'Blue6': (387, 436), 'Blue7': (473, 407), 'Blue8': (493, 407), 'Blue9': (486, 397), 'Blue10': (482, 396), 'ball': (561, 315)}
+d = {'Red0': (7, 77), 'Red1': (8, 88), 'Red2': (9, 99), 'Red3': (10, 100), 'Red4': (11,110), 'Red5': (12, 120), 'Red6': (13, 130), 'Red7': (14, 150), 'Red8': (15,150), 'Red9': (16, 160), 'Red10': (17, 170), 'Blue0': (
+    510, 548), 'Blue1': (531, 544), 'Blue2': (524, 535), 'Blue3': (513, 539), 'Blue4': (407, 439), 'Blue5': (402, 430), 'Blue6': (387, 436), 'Blue7': (473, 407), 'Blue8': (493, 407), 'Blue9': (486, 397), 'Blue10': (482, 396), 'ball': (100,100)}
 d1 = {}
 d2 = {}
 lst = [[0 for j in range(len(d))] for i in range(len(d))]
@@ -410,6 +365,35 @@ for m in d:
 
 print(d1)
 print(d2)
+
+# matrcizing the football field
+
+field = [[0 for x in range(25)] for y in range(26)]
+
+x_map = {7: 0, 8: 0, 9: 0, 10: 0}
+y_map = {77: 0, 78: 0, 79: 0, 80: 0}
+
+w = 11
+i = 0
+while i < 25:
+    increment = w+18
+    for k in range(w, increment):
+        x_map[k] = i
+
+    w = increment
+    i += 1
+
+w = 81
+i = 0
+while i < 26:
+    increment = w+18
+    for k in range(w, increment):
+        y_map[k] = i
+
+    w = increment
+    i += 1
+
+# print(y_map)
 
 while True:
     _, img = cap.read()
@@ -558,17 +542,36 @@ while True:
     red_Y2 = [d[x][0] for x in d if x[0] == 'R' and d[x][0] < 325]
     print(red_Y)
 
-    # Defensive Strategyaa
+    for z in d:
+        if 'R' in z:
+            x_cord= d[z][0]
+            y_cord= d[z][1]
+            xm = x_map[x_cord]
+            ym= y_map[y_cord]
+            field[ym][xm] = 1
+
+    x_cord = d['ball'][0]
+    y_cord = d['ball'][1]
+    xm= x_map[x_cord]
+    ym= y_map[y_cord]
+    field[ym][xm] = 2
+
+    print(field)
+
+
+    # Strategies
     if countB > 10 and d['ball'][0] < 423:
         print('defense')
         if ((len(red_Y2) > 3) and d['ball'][0] < 423):
+            p.keyDown('right')
             p.keyDown('s')
         elif len(red_Y) >= 1 and d['ball'][0] < 202:
             p.keyDown('s')
             p.keyDown('a')
         else:
-            p.keyUp('s')
-            p.keyUp('a')
+            p.keyDown('right')
+            p.keyDown('s')
+            # p.keyDown('a')
 
     # lst=[left,right,up,down, leftup, leftdown, righup , rightdown]
     # if initx < finalx
@@ -580,8 +583,9 @@ while True:
     else:
         teammates = sorted(adj_mat[22][11:22], key=lambda x: x[0])
         opp = sorted(adj_mat[22][0:11], key=lambda y: y[0])
+
         bhagcount = 0
-        bhagcount2=0
+        bhagcount2 = 0
         # run = True
         x1, y1 = d['ball']
         if d['ball'][0] >= 450:
@@ -611,25 +615,26 @@ while True:
                 p.keyUp('right')
                 p.keyUp('a')
 
+        elif opp[0][0] > 100 or an(x1, y1, d[d2[opp[0][1]]][0], d[d2[opp[0][1]]][1]) > math.pi:
+            pass
 
         elif d['ball'][0] >= 400:
             list_of_options = goaler()
             if len(list_of_options) == 0:
                 # apny pass rakho
                 # line
-                m1,b1 = line(x1,y1-10, x1+60,y1-30)
-                m2,b2 = line(x1,y1+10, x1+60, y1+30)
-                runn=True
+                m1, b1 = line(x1, y1-5, x1+60, y1-10)
+                m2, b2 = line(x1, y1+5, x1+60, y1+10)
+                runn = True
 
                 for i in opp[:5]:
                     if d[d2[i[1]]][0] > d['ball'][0]:
                         bhagcount += 1
                     elif x1+100 > d[d2[i[1]]][0] >= x1:
                         if d[d2[i[1]]][0] < (m1*d[d2[i[1]]][0]+b1) or d[d2[i[1]]][0] > (m2*d[d2[i[1]]][0]+b2):
-                            bhagcount+=1
+                            bhagcount += 1
 
-                    
-                if bhagcount <= 1 or bhagcount2<=1:
+                if bhagcount <= 1 or bhagcount2 <= 1:
                     for i in range(10):
                         p.keyDown('shift')
                         p.keyDown('right')
@@ -651,13 +656,9 @@ while True:
                 x2, y2 = d[d2[list_of_options[-1][0]]]
                 pass_ball(
                     x1, y1, x2, y2, adj_mat[list_of_options[0][1]][list_of_options[0][0]][0])
+        #             # bhago()
 
-        #
-
-        #             # bhag()
-        #             pass
-
-        # kepp_ball = True
+        # keep_ball = True
         else:
             for i in teammates:
                 print(f'entering loop {i}')
@@ -692,6 +693,10 @@ while True:
                         keepball = False
                         print('passsssssssssssssssssssssssssssssssssssssssssssss')
                         break
+
+                else:
+                    thru(x1,y1,x2,y2,i[0])
+                    # check angle also after distance. Long passes.
 
     # time.sleep(4)
 # sssss
