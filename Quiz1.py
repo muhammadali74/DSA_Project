@@ -10,7 +10,7 @@ def remove_noise(A):
     # print (A)
     p = []
     for i in range(len(A)):
-        q = []
+        # q = []
         for j in range (len(A[i])):
             t = []
             No = 0
@@ -55,13 +55,13 @@ def remove_noise(A):
                 if k != 'No':
                     count += 1
                 
-            sm = A[i][j] + eval(top) + eval(bottom) + eval(left) + eval(right) + eval(top_left) + eval(top_right) + eval(bottom_left) + eval(bottom_right)
+            # sm = A[i][j] + eval(top) + eval(bottom) + eval(left) + eval(right) + eval(top_left) + eval(top_right) + eval(bottom_left) + eval(bottom_right)
             
-            res = floor(sm/(count+1))
+            # res = floor(sm/(count+1))
                 
-            q.append(res)
+            # q.append(res)
             
-        p.append(q)
+        # p.append(q)
         
     return p
 
