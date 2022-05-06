@@ -1,0 +1,10 @@
+x_map = {}
+w = 7
+while i<23:
+    i=0
+    increment = w+21
+    for k in range(w,increment):
+        x_map[k] = i
+
+    w = increment
+    i+=1
