@@ -7,6 +7,7 @@ import pydirectinput as p
 import math
 import os
 import sys
+import Quiz1 as q1
 
 
 def enqueue_p(Q, elem, num=2):
@@ -70,32 +71,35 @@ def an(x1, y1, x2, y2):
 #     a1, a2 = x1+40, y1
 #     b1, b2 = None, None
 def dribble(field, xm, ym):
-    if field[ym-1][xm] == 0:
-        if field[ym-2][xm] == 0:
+    is_true = q1.remove_noise(field, ym, xm)
+    print(is_true)
+    if is_true['bottom'] == 0:
+        if field[ym+2][xm] == 0:
             p.keyDown('shift')
             p.keyDown('right')
             time.sleep(0.1)
             p.keyUp('shift')
             p.keyUp('right')
-    elif field[ym-1][xm-1] == 0:
+    # elif is_true[]
+    elif is_true['bottom_left'] == 0:
         p.keyDown('right')
         p.keyDown('down')
         time.sleep(0.1)
         p.keyUp('right')
         p.keyUp('down')
-    elif field[ym-1][xm+1] == 0:
+    elif is_true['bottom_right'] == 0:
         p.keyDown('right')
         p.keyDown('up')
         time.sleep(0.1)
         p.keyUp('right')
         p.keyUp('up')
-    elif field[ym][xm-1] == 0:
+    elif is_true['left'] == 0:
         # p.keyDown('right')
         p.keyDown('down')
         time.sleep(0.1)
         # p.keyUp('right')
         p.keyUp('down')
-    elif field[ym][xm+1] == 0:
+    elif is_true['right'] == 0:
         # p.keyDown('right')
         p.keyDown('up')
         time.sleep(0.1)
@@ -573,6 +577,7 @@ while True:
     # print(d)
 
     red_Y = [d[x][0] for x in d if x[0] == 'R' and d[x][0] < 200]
+    blue_Y = [d[x][0] for x in d if x[0] == 'B' and d[x][0] < 200]
     red_Y2 = [d[x][0] for x in d if x[0] == 'R' and d[x][0] < 325]
     print(red_Y)
 
@@ -599,7 +604,10 @@ while True:
     print(field)
 
     # Strategies
-    if countB > 10 and d['ball'][0] < 423:
+    if len(red_Y) > 5 and len(blue_Y) > 3:
+        p.keyDown('s')
+        p.keyDown('a')
+    elif countB > 10 and d['ball'][0] < 423:
         print('defense')
         if ((len(red_Y2) > 3) and d['ball'][0] < 423):
             p.keyDown('right')
