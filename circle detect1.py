@@ -69,9 +69,41 @@ def an(x1, y1, x2, y2):
 # def run(x1, y1, opp):
 #     a1, a2 = x1+40, y1
 #     b1, b2 = None, None
-def run(field,xm,ym):
-    
-    
+def dribble(field, xm, ym):
+    if field[ym-1][xm] == 0:
+        if field[ym-2][xm] == 0:
+            p.keyDown('shift')
+            p.keyDown('right')
+            time.sleep(0.1)
+            p.keyUp('shift')
+            p.keyUp('right')
+    elif field[ym-1][xm-1] == 0:
+        p.keyDown('right')
+        p.keyDown('down')
+        time.sleep(0.1)
+        p.keyUp('right')
+        p.keyUp('down')
+    elif field[ym-1][xm+1] == 0:
+        p.keyDown('right')
+        p.keyDown('up')
+        time.sleep(0.1)
+        p.keyUp('right')
+        p.keyUp('up')
+    elif field[ym][xm-1] == 0:
+        # p.keyDown('right')
+        p.keyDown('down')
+        time.sleep(0.1)
+        # p.keyUp('right')
+        p.keyUp('down')
+    elif field[ym][xm+1] == 0:
+        # p.keyDown('right')
+        p.keyDown('up')
+        time.sleep(0.1)
+        # p.keyUp('right')
+        p.keyUp('up')
+    else:
+        p.keyDown('s')
+        print('nowhere')
 
 
 def pass_ball(x1, y1, x2, y2, dis):
@@ -137,10 +169,11 @@ def pass_ball(x1, y1, x2, y2, dis):
 
     else:
 
-        p.keyDown('s')
-        time.sleep(hold)
+        # p.keyDown('s')
+        # time.sleep(hold)
         print('SUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII')
-        p.keyUp('s')
+        # p.keyUp('s')
+        dribble(field, xm, ym)
     time.sleep(hold2)
 
 
@@ -207,10 +240,11 @@ def thru(x1, y1, x2, y2, dis):
 
     else:
 
-        p.keyDown('w')
-        time.sleep(hold)
+        # p.keyDown('w')
+        # time.sleep(hold)
         print('SUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII')
-        p.keyUp('w')
+        # p.keyUp('w')
+        dribble(field, xm, ym)
     time.sleep(hold2)
 
 
@@ -352,8 +386,8 @@ cap = cv.VideoCapture(1)
 
 # cap.set(3, 1280)
 # cap.set(4, 720)
-d = {'Red0': (7, 77), 'Red1': (8, 88), 'Red2': (9, 99), 'Red3': (10, 100), 'Red4': (11,110), 'Red5': (12, 120), 'Red6': (13, 130), 'Red7': (14, 150), 'Red8': (15,150), 'Red9': (16, 160), 'Red10': (17, 170), 'Blue0': (
-    510, 548), 'Blue1': (531, 544), 'Blue2': (524, 535), 'Blue3': (513, 539), 'Blue4': (407, 439), 'Blue5': (402, 430), 'Blue6': (387, 436), 'Blue7': (473, 407), 'Blue8': (493, 407), 'Blue9': (486, 397), 'Blue10': (482, 396), 'ball': (100,100)}
+d = {'Red0': (7, 77), 'Red1': (8, 88), 'Red2': (9, 99), 'Red3': (10, 100), 'Red4': (11, 110), 'Red5': (12, 120), 'Red6': (13, 130), 'Red7': (14, 150), 'Red8': (15, 150), 'Red9': (16, 160), 'Red10': (17, 170), 'Blue0': (
+    510, 548), 'Blue1': (531, 544), 'Blue2': (524, 535), 'Blue3': (513, 539), 'Blue4': (407, 439), 'Blue5': (402, 430), 'Blue6': (387, 436), 'Blue7': (473, 407), 'Blue8': (493, 407), 'Blue9': (486, 397), 'Blue10': (482, 396), 'ball': (100, 100)}
 d1 = {}
 d2 = {}
 lst = [[0 for j in range(len(d))] for i in range(len(d))]
@@ -544,20 +578,25 @@ while True:
 
     for z in d:
         if 'R' in z:
-            x_cord= d[z][0]
-            y_cord= d[z][1]
-            xm = x_map[x_cord]
-            ym= y_map[y_cord]
-            field[ym][xm] = 1
+            try:  # beacuse of the mis identification in image recognition.
+                x_cord = d[z][0]
+                y_cord = d[z][1]
+                xm = x_map[x_cord]
+                ym = y_map[y_cord]
+                field[ym][xm] = 1
+            except:
+                pass
 
     x_cord = d['ball'][0]
     y_cord = d['ball'][1]
-    xm= x_map[x_cord]
-    ym= y_map[y_cord]
-    field[ym][xm] = 2
+    try:
+        xm = x_map[x_cord]
+        ym = y_map[y_cord]
+        field[ym][xm] = 2
+    except:
+        pass
 
     print(field)
-
 
     # Strategies
     if countB > 10 and d['ball'][0] < 423:
@@ -594,7 +633,7 @@ while True:
                 p.keyDown('right')
                 p.keyDown('a')
                 print('ball kicked')
-                time.sleep(0.3)
+                time.sleep(0.2)
                 p.keyUp('down')
                 p.keyUp('right')
                 p.keyUp('a')
@@ -602,7 +641,7 @@ while True:
                 p.keyDown('right')
                 p.keyDown('a')
                 print('ball kicked')
-                time.sleep(0.3)
+                time.sleep(0.2)
                 p.keyUp('right')
                 p.keyUp('a')
             else:
@@ -610,13 +649,13 @@ while True:
                 p.keyDown('right')
                 p.keyDown('a')
                 print('ball kicked')
-                time.sleep(0.3)
+                time.sleep(0.2)
                 p.keyUp('up')
                 p.keyUp('right')
                 p.keyUp('a')
 
         elif opp[0][0] > 100 or an(x1, y1, d[d2[opp[0][1]]][0], d[d2[opp[0][1]]][1]) > math.pi:
-            pass
+            dribble(field, xm, ym)
 
         elif d['ball'][0] >= 400:
             list_of_options = goaler()
@@ -695,7 +734,7 @@ while True:
                         break
 
                 else:
-                    thru(x1,y1,x2,y2,i[0])
+                    thru(x1, y1, x2, y2, i[0])
                     # check angle also after distance. Long passes.
 
     # time.sleep(4)

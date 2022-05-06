@@ -21,4 +21,5 @@ while i < 26:
     w = increment
     i += 1
 
-# print(y_map)
+print(y_map)
+print(x_map)
