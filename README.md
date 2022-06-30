@@ -7,7 +7,7 @@
 ++ Open CV
 ++ Numpy
 ++ Pydirectinput
-++ Math
+
 
 # +Other Softwares
 ++ Steam
